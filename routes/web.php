@@ -16,9 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('admin', ['uses' => 'Auth\LoginController@getIndex', 'as' => 'login.index']);
+
+Route::post('post-login', 'AuthController@postLogin');
+Route::get('login', ['uses' => 'Auth\LoginController@getIndex', 'as' => 'login.index']);
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('grasapi', [ 'as' => 'grasapi', 'uses' => 'Auth\LoginController@apiLogin']);
+Route::get('grasapi', [ 'as' => 'grasapi', 'uses' => 'Auth\RegisterController@apiLogin']);

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Session;
+
 class LoginController extends Controller
 {
     /*
@@ -26,23 +26,11 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-    public function apiLogin(){
-        $gid=strip_tags($_REQUEST['gid']);
-        if($gid!='')
-    {
-        if(strlen($gid)!=64)
-        {
-                header("Location:https://sso.gujarat.gov.in/SSO.aspx?Rurl=http://govtawasallot.guj.nic.in/login.php");
-        exit;
-        }
-        Session::put('gid',$gid);
-         $this->checkuser();
-       
-        exit;
-    }
+ 
 
-    }
+    protected $redirectTo = RouteServiceProvider::HOME;
+ 
+    
     /**
      * Create a new controller instance.
      *
