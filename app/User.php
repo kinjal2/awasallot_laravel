@@ -36,4 +36,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    protected $table = 'users';
+
+    public static function getRoleIdByTrigger($role_trigger)
+    {
+        $role_id = '';
+       
+            $role = user::where('is_admin', '=', true)->first();
+            $role_id = isset($role->is_admin) ? $role->is_admin : '';
+        
+        return $role_id;
+    }
 }

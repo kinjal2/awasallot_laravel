@@ -2,29 +2,30 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Application Name
-    |--------------------------------------------------------------------------
-    |
-    | This value is the name of your application. This value is used when the
-    | framework needs to place the application's name in a notification or
-    | any other location as required by the application or its packages.
-    |
-    */
+     /*
+      |--------------------------------------------------------------------------
+      | Application Name
+      |--------------------------------------------------------------------------
+     */
 
-    'name' => env('APP_NAME', 'Laravel'),
-
+    'application_name' => 'Estate Management System(Administrator)',
     /*
-    |--------------------------------------------------------------------------
-    | Application Environment
-    |--------------------------------------------------------------------------
-    |
-    | This value determines the "environment" your application is currently
-    | running in. This may determine how you prefer to configure various
-    | services the application utilizes. Set this in your ".env" file.
-    |
-    */
+      |--------------------------------------------------------------------------
+      | Application Theme Name
+      |--------------------------------------------------------------------------
+     */
+    'theme' => 'admin-lte',
+    /*
+      
+    'maximum_allowed_slots' => 2,
+    /*
+      |--------------------------------------------------------------------------
+      | Application Theme Path
+      |--------------------------------------------------------------------------
+     */
+    'theme_path' => 'bower_components/admin-lte',
+    
+    
 
     'env' => env('APP_ENV', 'production'),
 
@@ -67,7 +68,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Kolkata',
 
     /*
     |--------------------------------------------------------------------------
@@ -174,6 +175,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
+        
 
     ],
 
@@ -226,6 +229,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'PDF' => Meneses\LaravelMpdf\Facades\LaravelMpdf::class,
+        
 
     ],
 
