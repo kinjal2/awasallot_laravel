@@ -42,9 +42,8 @@
                             <th>Application Accepted</th>
                             <th>Inward No</th>
                             <th>Inward Date</th>
-                            <th>Print Application</th>
-                            <th>Attach Documents</th>
-                            <th>Issues</th>
+                            <th>Print Application/Attach Documents</th>
+                           <th>Issues</th>
                             
                     </tr>
                   </thead>
@@ -84,13 +83,9 @@
             {data: 'is_allotted', name: 'is_allotted'},
             {data: 'inward_no', name: 'inward_no'},
             {data: 'inward_date', name: 'inward_date'},
-            {
-                data: 'print', 
-                name: 'print', 
-                orderable: true, 
-                searchable: true
-            },
-            {data: 'quartertype', name: 'document'},
+           
+            {data: 'action', name: 'action', orderable: true, 
+                searchable: true},
             {data: 'remarks', name: 'remarks'},
            
         ]

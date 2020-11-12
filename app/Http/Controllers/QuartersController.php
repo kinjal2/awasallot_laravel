@@ -6,14 +6,20 @@ use Illuminate\Http\Request;
 use App\Tquarterrequestb;
 use App\Tquarterrequesta;
 use App\Tquarterrequestc;
+use App\Document_type;
+use App\File_list;
 use App\Quarter;
 use Carbon\Carbon;
 use Session;
-use DataTables;
+use Yajra\Datatables\Datatables;
 use DB;
 use PDF;
+use PHPOnCouch\CouchClient;
+use PHPOnCouch\Exceptions;
+use stdClass;
 class QuartersController extends Controller
 {
+    var $viewContent = [];
     /**
      * Create a new controller instance.
      *
@@ -188,39 +194,42 @@ class QuartersController extends Controller
         if ($request->ajax()) {
                 $basic_pay=Session::get('basic_pay');
                 $quarterselect= Quarter::where('bpay_from', '<=',$basic_pay)->where('bpay_to', '>=',$basic_pay)->get();
-                DB::enableQueryLog();
-                $quarterlist = Tquarterrequestc::select([DB::raw("'change' as requesttype"),'quartertype','request_date','is_accepted','inward_date',DB::raw("wno::integer"),'remarks',
+               // DB::enableQueryLog();
+                $quarterlist = Tquarterrequestc::select([DB::raw("'c' as type"),DB::raw("'change' as requesttype"),'quartertype','request_date','is_accepted','inward_date',DB::raw("wno::integer"),'remarks',
                 DB::raw("(CASE 
                 WHEN is_allotted='0' THEN 'NO' 
                 ELSE 'YES' 
-                END) AS is_allotted"),'inward_no'])
+                END) AS is_allotted"),'inward_no','requestid','rivision_id'])
                 ->where('is_allotted', '=',0)
                 ->where('uid', '=',$uid)
+                ->whereNotNull('request_date')
                 ->where('quartertype', '=',($quarterselect[0]->quartertype));
-                $quarterlist2 = Tquarterrequestb::select([DB::raw("'Higher Category' as requesttype"),'quartertype','request_date','is_accepted','inward_date','wno','remarks',
+                $quarterlist2 = Tquarterrequestb::select([DB::raw("'b' as type"),DB::raw("'Higher Category' as requesttype"),'quartertype','request_date','is_accepted','inward_date','wno','remarks',
                 DB::raw("(CASE 
                 WHEN is_allotted='0' THEN 'NO' 
                 ELSE 'YES' 
-                END) AS is_allotted"),'inward_no'])
+                END) AS is_allotted"),'inward_no','requestid','rivision_id'])
                 ->where('quartertype', '=',($quarterselect[0]->quartertype))
                 ->where('is_allotted', '=',0)
+                ->whereNotNull('request_date')
                 ->where('uid', '=',$uid);
               //  ->union($quarterlist) 
                // ->get();
-                $quarterlist3 = Tquarterrequesta::select([DB::raw("'New' as requesttype"),'quartertype','request_date','is_accepted','inward_date','wno','remarks',
+                $quarterlist3 = Tquarterrequesta::select([DB::raw("'a' as type"),DB::raw("'New' as requesttype"),'quartertype','request_date','is_accepted','inward_date','wno','remarks',
                 DB::raw("(CASE 
                 WHEN is_allotted='0' THEN 'NO' 
                 ELSE 'YES' 
-                END) AS is_allotted"),'inward_no'])
+                END) AS is_allotted"),'inward_no','requestid','rivision_id'])
                 ->where('quartertype', '=',($quarterselect[0]->quartertype))
                 ->where('is_allotted', '=',0)
+                ->whereNotNull('request_date')
                 ->where('uid', '=',$uid)
                 ->union($quarterlist) 
                 ->union($quarterlist2) 
                 ->get();
-               $query = DB::getQueryLog();
+             //  $query = DB::getQueryLog();
               //dd( $query);
-             
+            
             return Datatables::of($quarterlist3)
                         ->addIndexColumn()
                         ->addColumn('inward_no', function ($row) {
@@ -231,23 +240,19 @@ class QuartersController extends Controller
                         ->addColumn('inward_date', function ($inward_date) {
                             if($inward_date->inward_date=='')  return 'N/A';
                             $inward_date = Carbon::parse($inward_date->inward_date);
-                            return $inward_date->format('d-m-Y');;
+                            return $inward_date->format('d-m-Y');
                         })
                         ->addColumn('request_date', function ($request_date) {
                             if($request_date->request_date=='')  return 'N/A';
                             $request_date = Carbon::parse($request_date->request_date);
                             return $request_date->format('d-m-Y');;
                         })
-                        ->addColumn('print', function($row){
-                            $btn = '<a href="' . \URL::action('QuartersController@generate_pdf').'"  target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-print" aria-hidden="true"></i></a>';
-                            return $btn;
+                        ->addColumn('action', function($row){
+                            $btn1 = '<a href="' . \URL::action('QuartersController@generate_pdf').'"  target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-print" aria-hidden="true"></i></a>'."&nbsp;".'<a href="' . \URL::action('QuartersController@uploaddocument'). "?r=" . base64_encode($row->requestid)."&type=". base64_encode($row->type)."&rev=". base64_encode($row->rivision_id).'" class="btn btn-primary btn-sm"><i class="fa fa-file" aria-hidden="true"></i></a>';
+                            return $btn1;
                         })
+                        ->rawColumns(['action'])
                         
-                        ->addColumn('document', function($row){
-                            $btn = '<a href="' . \URL::action('QuartersController@generate_pdf').'" class="btn btn-primary btn-sm"><i class="fa fa-print" aria-hidden="true"></i></a>';
-                            return $btn;
-                        })
-                        ->rawColumns(['document','print'])
                         ->make(true);
             }
 
@@ -257,7 +262,62 @@ class QuartersController extends Controller
 			'foo' => 'bar'
         ];
         $this->_viewContent['data']=$data;
-		$pdf = PDF::loadView('pdf.document', $this->_viewContent);
-		return $pdf->stream('document.pdf');
+      //  $mpdf='';
+      //  $mpdf->autoScriptToLang = true;
+       // $mpdf->autoLangToFont = true;
+        $mpdf = PDF::loadView('pdf.document', $this->_viewContent);
+        $mpdf->set_option('font-family', 'Tahoma');
+        //dd($mpdf->autoLangToFont);
+		return $mpdf->stream('document.pdf');
+    }
+    public function uploaddocument()
+    {
+      
+      $request_id=base64_decode($_REQUEST['r']);
+      $type=base64_decode($_REQUEST['type']);  
+      $rev=base64_decode($_REQUEST['rev']);  
+     // DB::enableQueryLog();
+      $document_list = Document_type::where('performa', 'LIKE', '%'. $type.'%')
+       ->pluck('document_name','document_type');
+      $this->_viewContent['page_title'] = "Higher Category";
+        $this->_viewContent['document_list'] =$document_list;
+        $this->_viewContent['request_id'] =$request_id;
+        $this->_viewContent['rev'] =$rev;
+        $this->_viewContent['type'] =$type;
+        return view('user/documentupload',$this->_viewContent); 
+    }
+    public function saveuploaddocument(request $request)
+    {
+        //dd($request->document_type);
+        $client = new CouchClient('http://admin:admin@localhost:5984','awas_document');
+        $new_doc = new stdClass(); 
+        $new_doc->title = "Some content";
+      
+        $new_doc->_id =(string)Session::get('uid')."_".$request->request_id."_".$request->document_type."_".$request->performa."_".$request->request_rev;
+        $new_doc->request_id =Session::get('uid');
+ try {
+     $response = $client->storeDoc($new_doc);
+     $doc = $client->getDoc($new_doc->_id);
+     if ($request->hasFile('image')) { 
+        $file = $request->file('image');
+        $MimeType=$file->getClientMimeType();
+        $pathname = $file->getPathName();
+        $fileName =  $file->getClientOriginalName();
+      } 
+      $File_list = new File_list;
+      $File_list->uid =Session::get('uid');
+      $File_list->file_name = (string)Session::get('uid')."_".$request->request_id."_".$request->document_type."_".$request->performa."_".$request->request_rev;
+      $File_list->rev_id = $response->rev;
+      $File_list->mimetype = $MimeType;
+      $File_list->doc_id = $request->document_type; 
+      $File_list->save(); 
+
+      $ok =  $client->storeAttachment($doc,  $pathname, $MimeType, $filename = null);
+    //  print_r($ok);
+  //   echo $response->rev;
+ } catch (Exception $e) {
+     echo "ERROR: ".$e->getMessage()." (".$e->getCode().")<br>\n";
+ }
+ echo "Doc recorded. id = ".$response->id." and revision = ".$response->rev."<br>\n";
     }
 }

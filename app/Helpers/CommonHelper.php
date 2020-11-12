@@ -1,5 +1,5 @@
 <?php
-
+Use Session;
 Use App\Quarter;
 Use App\Area;
 Use App\User;

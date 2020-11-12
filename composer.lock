@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "40c23c3ce38fef835ed36b27216cafc3",
+    "content-hash": "1f658571274d399e45c70583f028a7c5",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2245,6 +2245,72 @@
                 "random"
             ],
             "time": "2018-07-02T15:55:56+00:00"
+        },
+        {
+            "name": "php-on-couch/php-on-couch",
+            "version": "3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHP-on-Couch/PHP-on-Couch.git",
+                "reference": "ad0f3ce14f5514eecdd97aedc51324d3b0b3be9b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHP-on-Couch/PHP-on-Couch/zipball/ad0f3ce14f5514eecdd97aedc51324d3b0b3be9b",
+                "reference": "ad0f3ce14f5514eecdd97aedc51324d3b0b3be9b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.0",
+                "vlucas/phpdotenv": "^4.1.7"
+            },
+            "require-dev": {
+                "phpcheckstyle/phpcheckstyle": "*",
+                "phpunit/phpunit": "5.5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PHPOnCouch\\": "src/",
+                    "PHPOnCouch\\Exceptions\\": "src/Exceptions/",
+                    "PHPOnCouch\\Adapter\\": "src/Adapter/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Bailly",
+                    "email": "mickael.bailly@free.fr",
+                    "homepage": "https://github.com/dready92/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Clemens Sahs",
+                    "email": "clemens.sahs@slides-worker.org",
+                    "homepage": "https://github.com/ClemensSahs",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Alexis Côté",
+                    "email": "alexiscote19@hotmail.com",
+                    "homepage": "https://popojargo.github.io/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "CouchDB NoSQL database access in PHP",
+            "homepage": "https://github.com/PHP-on-Couch/PHP-on-Couch",
+            "keywords": [
+                "apache",
+                "couch",
+                "couchdb",
+                "db",
+                "driver",
+                "nosql"
+            ],
+            "time": "2020-07-06T00:45:50+00:00"
         },
         {
             "name": "phpoffice/phpspreadsheet",

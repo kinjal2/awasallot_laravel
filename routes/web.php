@@ -48,7 +48,8 @@ Route::get('quartershistory', [ 'as' => 'user.Quarter.history', 'uses' => 'Quart
 Route::get('request-history', ['uses' => 'QuartersController@requestHistory']);
 
 Route::get('generate-pdf', ['uses' => 'QuartersController@generate_pdf']);
-
+Route::get('uploaddocument/:any', ['uses' => 'QuartersController@uploaddocument']);
+Route::post('saveuploaddocument', ['uses' => 'QuartersController@saveuploaddocument']);
 
 
 Route::get('quarters', [ 'as' => 'quarters', 'uses' => 'QuartersController@index']);

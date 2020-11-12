@@ -164,8 +164,8 @@ $uid = $resp->IsValidTokanResult;
                            
                             if(\Auth::user()->is_admin == true)
                             {
-                            // dd(\Redirect::route('user.dashboard.userdashboard'));
-                              return  \Redirect::route('user.dashboard.userdashboard');
+                           // dd(\Redirect::route('admin.dashboard.admindashboard'));
+                             // return  \Redirect::route('user.dashboard.userdashboard');
                             }
                         
                         }else{ 
