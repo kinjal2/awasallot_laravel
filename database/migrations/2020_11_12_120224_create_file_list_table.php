@@ -23,8 +23,9 @@ class CreateFileListTable extends Migration
             $table->string('performa',1);
             $table->integer('document_id');
             $table->integer('rivision_id');
-            $table->integer('bk_doc_id');
-            
+            $table->integer('request_id');
+            $table->integer('bk_doc_id')->nullable();
+           
             $table->timestamps();
         });
     }

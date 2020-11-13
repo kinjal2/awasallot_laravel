@@ -23,7 +23,7 @@
             <!-- general form elements -->
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title">User Details</h3>
+                <h3 class="card-title">Upload Document</h3>
 				@if ($errors->any())
 					<div class="alert alert-danger">
 						<ul>
@@ -72,7 +72,53 @@
             <!-- /.card -->
 
           </div>
-          
+   	<div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card ">
+              <div class="card-header">
+                <h3 class="card-title">Attached Documents</h3>
+				
+              </div>
+              <!-- /.card-header -->
+             
+	<div class="card-body">
+		<div class="row">
+			<div class="col-12">
+			
+			<table class="table table-bordered" id="request_history">
+                  <thead>                  
+                    <tr>
+                            <th>Document Type</th>
+                            <th>File</th>
+                            <th>Delete</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                   
+                    @foreach($attacheddocument as $a)
+                    <tr>
+                    <td>{{ $a->document_name}}</td>
+                    <td><i class="fas fa-file-pdf fas-5x" ></i></td>
+                    
+                    <td>
+                    <a href="javascript:;" class="btn btn btn-danger delete_doc" delete-id="{{ $a->rev_id }}" data-id="{{ $a->doc_id }}"><i class=" fa-trash-o"></i></a>
+                    
+                   </td> </tr>
+                    @endforeach
+                   
+                  </tbody>
+                </table>
+				
+			</div>
+			
+		</div>
+     
+	</div>
+
+            </div>
+            <!-- /.card -->
+
+          </div>       
           </div>
     <!-- /.content -->
 @endsection
@@ -87,16 +133,35 @@
                  format: 'DD-MM-YYYY'
            });
         }); 
-/*$('#comment').on('submit', function(e) {
-    e.preventDefault(); 
-    $.ajax({
-        type: "POST",
-        url: host+'/comment/add',
-        data: $(this).serialize(),
-        success: function(msg) {
-        alert(msg);
-        }
-    });
-});     */
+
+$('body').on('click', '.delete_doc', function() {
+        var pid = $(this).attr('delete-id');
+        var id = $(this).attr('data-id');
+            swal.fire({
+                   text: "Are you sure? Want to Remove This Details ",
+                   showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it!",
+                  }).then((result) => { alert("ghgf");
+                    //$('#loader-wrapper').show();
+                    $.ajax({
+                        url: "{{ url('deletedoc') }}",
+                         data: {rid:pid,id:id},
+                        method: "POST",
+                        success: function (result) {
+                           
+                            var data = $.parseJSON(result);
+                            if (data.status == 1) { //alert("j");
+                              swal.fire("Success !", data.message, "success");
+                                  setTimeout(function(){  location.reload(); }, 500);
+              
+               
+                             } else {
+                              swal.fire("Oops...", data.message, "error");
+                            }
+                        }
+                    });
+                });
+}); 
 </script>
 @endpush

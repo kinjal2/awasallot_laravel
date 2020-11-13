@@ -18,6 +18,11 @@
 <script src="{{ URL::asset(Config::get('app.theme_path').'/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 <!-- Bootstrap Switch -->
 <script src="{{ URL::asset(Config::get('app.theme_path').'/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+
+<!-- Sweet Alert-->
+<script src="{{ URL::asset(Config::get('app.theme_path').'/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+
+
 <!-- DataTables -->
 <script src="{{ URL::asset(Config::get('app.theme_path').'/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ URL::asset(Config::get('app.theme_path').'/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>

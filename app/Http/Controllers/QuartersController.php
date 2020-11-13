@@ -277,10 +277,20 @@ class QuartersController extends Controller
       $type=base64_decode($_REQUEST['type']);  
       $rev=base64_decode($_REQUEST['rev']);  
      // DB::enableQueryLog();
-      $document_list = Document_type::where('performa', 'LIKE', '%'. $type.'%')
+      $document_list = Document_type::where('performa', 'LIKE', '%'. $type.'%')->whereNotIn('document_type',  File_list::WHERE('uid',Session::get('uid'))->WHERE('request_id',$request_id)->WHERE('performa',$type)->pluck('document_id'))
        ->pluck('document_name','document_type');
-      $this->_viewContent['page_title'] = "Higher Category";
+        
+        $attacheddocument =DB::table('master.file_list')
+       ->join('master.m_document_type', 'master.file_list.document_id', '=', 'master.m_document_type.document_type')
+       ->WHERE('uid',Session::get('uid'))
+       ->WHERE('request_id',$request_id)
+       ->WHERE('master.file_list.performa',$type)
+       ->select('rev_id','doc_id','document_name')
+       ->get();
+
+        $this->_viewContent['page_title'] = "Upload Document";
         $this->_viewContent['document_list'] =$document_list;
+        $this->_viewContent['attacheddocument'] =$attacheddocument;
         $this->_viewContent['request_id'] =$request_id;
         $this->_viewContent['rev'] =$rev;
         $this->_viewContent['type'] =$type;
@@ -291,9 +301,9 @@ class QuartersController extends Controller
         //dd($request->document_type);
         $client = new CouchClient('http://admin:admin@localhost:5984','awas_document');
         $new_doc = new stdClass(); 
-        $new_doc->title = "Some content";
+       // $new_doc->title = "Some content";
       
-        $new_doc->_id =(string)Session::get('uid')."_".$request->request_id."_".$request->document_type."_".$request->performa."_".$request->request_rev;
+        $new_doc->_id =(string)Session::get('uid')."_".$request->request_id."_".$request->document_type."_".$request->perfoma."_".$request->request_rev;
         $new_doc->request_id =Session::get('uid');
  try {
      $response = $client->storeDoc($new_doc);
@@ -303,13 +313,18 @@ class QuartersController extends Controller
         $MimeType=$file->getClientMimeType();
         $pathname = $file->getPathName();
         $fileName =  $file->getClientOriginalName();
+        //.'_'.Session::get('uid').'_'.time();
       } 
       $File_list = new File_list;
       $File_list->uid =Session::get('uid');
-      $File_list->file_name = (string)Session::get('uid')."_".$request->request_id."_".$request->document_type."_".$request->performa."_".$request->request_rev;
+      $File_list->file_name =$fileName;
       $File_list->rev_id = $response->rev;
       $File_list->mimetype = $MimeType;
-      $File_list->doc_id = $request->document_type; 
+      $File_list->doc_id =  (string)Session::get('uid')."_".$request->request_id."_".$request->document_type."_".$request->perfoma."_".$request->request_rev; 
+      $File_list->performa = $request->perfoma; 
+      $File_list->document_id = $request->document_type; 
+      $File_list->rivision_id = $request->request_rev; 
+      $File_list->request_id = $request->request_id; 
       $File_list->save(); 
 
       $ok =  $client->storeAttachment($doc,  $pathname, $MimeType, $filename = null);
@@ -318,6 +333,26 @@ class QuartersController extends Controller
  } catch (Exception $e) {
      echo "ERROR: ".$e->getMessage()." (".$e->getCode().")<br>\n";
  }
- echo "Doc recorded. id = ".$response->id." and revision = ".$response->rev."<br>\n";
+ //echo "Doc recorded. id = ".$response->id." and revision = ".$response->rev."<br>\n";
+ return redirect()->back();
+    }
+    public function deletedoc(request $request)
+    {
+        //dd($request);
+        $client = new CouchClient('http://admin:admin@localhost:5984','awas_document');
+       
+      
+        try {
+            $doc = $client->getDoc($request->id);
+        } catch (Exception $e) {
+            echo "ERROR: ".$e->getMessage()." (".$e->getCode().")<br>\n";
+        }
+        // permanently remove the document
+        try {
+            $client->deleteDoc($doc);
+            DB::table('master.file_list')->where('doc_id', '=', $request->id)->delete();
+        } catch (Exception $e) {
+            echo "ERROR: ".$e->getMessage()." (".$e->getCode().")<br>\n";
+        }
     }
 }
