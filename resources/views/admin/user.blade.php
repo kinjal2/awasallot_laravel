@@ -59,25 +59,32 @@ console.log('page is ready');
 @endpush
 @push('footer-script')
 <script type="text/javascript">
-   $(function () {
-    
-    var table = $('#userlist').DataTable({
+ var table = $('#userlist').DataTable({
+  lengthMenu: [
+                [10, 20, 50, -1],
+                [10, 20, 50, "All"] // change per page values here
+            ],
         processing: true,
         serverSide: true,
-        responsive: true,
-        "ajax": {
-            "url": "{{ route('getUserList') }}",
-            "type": "POST"
-        },
-        "order": [ 0, 'asc' ],
+      
+        ajax: "{{URL::action('UserController@getList')}}",
+       // set the initial value
+       pageLength: 10,
+            order: [
+                [0, "asc"]
+            ],
         columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            
+          {data: 'DT_RowIndex', orderable: false, searchable: false},
             {data: 'name', name: 'name'},
-            {data: 'email', name: 'email'},
+            {data: 'designation', name: 'designation'},
+            {data: 'office', name: 'office'},
+             {data: 'email', name: 'email'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
+           
         ]
     });
-    
-  });
+
+
 </script>
 @endpush

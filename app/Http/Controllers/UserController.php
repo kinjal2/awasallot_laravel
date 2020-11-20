@@ -29,22 +29,17 @@ class UserController extends Controller
         return view('admin/user',$this->_viewContent);
     }
     public function getList(){
-        
-     //   $users = DB::table('users')->get();
-       $User = User::select('name', 'email', 'office', 'designation');
-     //  $data = User::select('name', 'email', 'office', 'designation')->get();
-     //dd( DB::table('users')->get());
-      dd( $user);
-        //return Datatables::of(User::query())->make(true);
-       /* return Datatables::of($User)
-                       /* ->addColumn('action', function ($user) {
-                                    return '<a href="' . \URL::action('Superadmin\DomainsController@getManage') . "/" . $user->id . '" class="btn btn-xs blue earni-blue btn-outline edit_row"><i class="fa fa-pencil"></i></a>'
-                                            . '<a href="' . \URL::action('Superadmin\DomainsController@getCopy') . "/" . $user->id . '" class="btn btn-xs green earni-green btn-outline"><i class="fa fa-copy"></i></a>'
-                                            . '<a href="javascript:;" class="btn btn-xs red earni-red btn-outline" destroy-id="' . $user->id . '"><i class="fa fa-trash-o"></i></a>';
-                                })
-                        ->removeColumn('id')
-                        ->make(true);*/
-      
+    
+    $users = User::select(['name', 'designation', 'office', 'email', 'id']);
+    return Datatables::of($users)
+        ->addIndexColumn()
+        ->addColumn('action', function($row){
+          return '<a href="#" class="btn btn-xs blue earni-blue btn-outline edit_row"><i class="fa fa-pencil"></i></a> '
+          ;
+      })
+      ->rawColumns(['action'])
+        ->make(true);
+       
       
     }
 }

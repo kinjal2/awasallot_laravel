@@ -57,9 +57,21 @@ Route::post('deletedoc', ['uses' => 'QuartersController@deletedoc']);
 
 
 Route::get('quarters', [ 'as' => 'quarters', 'uses' => 'QuartersController@index']);
+Route::get('quarterlistnormal', [ 'as' => 'quarter.list.normal', 'uses' => 'QuartersController@quarterlistnormal']);
+Route::get('quarterlistpriority', [ 'as' => 'quarter.list.priority', 'uses' => 'QuartersController@quarterlistnormal']);
+Route::get('quarterlistnew', [ 'as' => 'quarter.list.new', 'uses' => 'QuartersController@quarterlistnormal']);
+Route::get('waitinglist', [ 'as' => 'waiting.list', 'uses' => 'ReportsController@waitinglist']);
+Route::get('allotmentlist', [ 'as' => 'allotment.list', 'uses' => 'ReportsController@allotmentlist']);
+Route::get('vacantlist', [ 'as' => 'vacant.list', 'uses' => 'ReportsController@vacantlist']);
+Route::get('waiting-list', ['uses' => 'ReportsController@getWaitingList']);
+Route::get('allotment-list', ['as' => 'allotment-list', 'uses' => 'ReportsController@getAllotmentList']);
+Route::post('vacant-list', ['as' => 'vacant-list', 'uses' => 'ReportsController@getVacantList']);
+
+Route::post('normalquarter-list', ['as' => 'normalquarter-list', 'uses' => 'QuartersController@getNormalquarterList']);
+
 Route::get('reports', [ 'as' => 'reports', 'uses' => 'ReportsController@index']);
 Route::get('user', [ 'as' => 'user', 'uses' => 'UserController@index']);
-Route::post('getUserList', ['uses'=>'UserController@getList', 'as'=>'getUserList']);
+Route::get('getUserList', ['uses'=>'UserController@getList', 'as'=>'getUserList']);
 
 Route::get('grasapi', [ 'as' => 'grasapi', 'uses' => 'Auth\LoginController@apiLogin']);
 

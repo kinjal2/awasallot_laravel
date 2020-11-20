@@ -355,4 +355,51 @@ class QuartersController extends Controller
             echo "ERROR: ".$e->getMessage()." (".$e->getCode().")<br>\n";
         }
     }
+    public function quarterlistnormal(){
+        $this->_viewContent['page_title'] = "Quarter Request (Normal)";
+         return view('request/quarterlistnormal',$this->_viewContent);
+    }
+    public function getNormalquarterList(request $request)
+    {
+        $first = Tquarterrequesta::select(['request_date',DB::raw("'a' as type"),DB::raw("'New' as requesttype"),'requestid','quartertype','inward_no','inward_date','u.name','u.designation','office','rivision_id','remarks','contact_no',
+        'address','gpfnumber','is_accepted','is_allotted','is_varified','email'])
+        ->join('userschema.users as u', 'u.id', '=', 'master.t_quarter_request_a.uid')
+        ;
+        $second = Tquarterrequestc::select(['request_date',DB::raw("'c' as type"),DB::raw("'Change' as requesttype"),'requestid','quartertype','inward_no','inward_date','u.name','u.designation','office','rivision_id','remarks','contact_no',
+        'address','gpfnumber','is_accepted','is_allotted','is_varified','email'])
+        ->join('userschema.users as u', 'u.id', '=', 'master.t_quarter_request_c.uid')
+        ;
+      $union =Tquarterrequestb::select(['request_date',DB::raw("'b' as type"),DB::raw("'Higher Category' as requesttype"),'requestid','quartertype','inward_no','inward_date','u.name','u.designation','office','rivision_id','remarks','contact_no',
+        'address','gpfnumber','is_accepted','is_allotted','is_varified','email']) 
+        ->join('userschema.users as u', 'u.id', '=', 'master.t_quarter_request_b.uid')
+        ->union($first)
+        ->union($second);
+
+    $query = DB::table(DB::raw("({$union->toSql()}) as x"))
+        ->select(['type','requesttype','requestid','quartertype','inward_no','inward_date','name','designation','office','rivision_id','remarks','contact_no',
+        'address','gpfnumber','is_accepted','is_allotted','is_varified','email','request_date'])
+        ->where(function ($query) {
+            $query->where('is_accepted', '=', 1)
+            ->WhereNull('remarks')
+            ->Where('is_varified', '=', 0)
+            ->orderBy('wno'); 
+        });
+        
+    return Datatables::of($query)
+    ->addColumn('inward_date', function ($date) {
+        if($date->inward_date=='')  return 'N/A';
+      
+        return date('d-m-Y',strtotime($date->inward_date));
+    })
+    ->addColumn('request_date', function ($date) {
+        if($date->request_date=='')  return 'N/A';
+      
+        return date('d-m-Y',strtotime($date->request_date));
+    })
+   
+    ->addColumn('action', function($row){
+        return 'action';
+    })
+    ->make(true);
+    }
 }

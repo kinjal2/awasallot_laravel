@@ -61,16 +61,32 @@ class LoginController extends Controller
             'email' => $request->email,
             'password' => $request->password,
         ]; 
+       
         $login = false;
         $validator = \Validator::make($request->all(), $this->rules);
+       
         if ($validator->fails()) {
+           
             return \Redirect::back()->withInput()->withErrors($validator);
+
         } else {
+           // dd(\Auth::attempt($credentials, $remember));
             if (\Auth::attempt($credentials, $remember)) 
-            { 
+            {   
+              //  dd("hello");
+              //  dd(\Auth::user()->is_admin);
                 $user_id = \Auth::user()->id;  
                 Session::put('uid',$user_id);
-                return  \Redirect::route('user.dashboard.userdashboard');
+                if(\Auth::user()->is_admin == true)
+                {
+                    return  \Redirect::route('admin.dashboard.admindashboard'); 
+                }
+                else{
+                    return  \Redirect::route('user.dashboard.userdashboard'); 
+                 }
+            }
+            else{
+               // dd("gfhg");
             }
             } 
         

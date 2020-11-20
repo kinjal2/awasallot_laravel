@@ -16,36 +16,39 @@ return [
             'icon' => 'icon-home',
             'permission_route' => 'quarters',
             'route' => [
-                'quarters'
+                'quarters',
+                'quarterlistnormal',
+                'quarterlistpriority',
+                'quarterlistnew'
             ],
             'link' => 'quarters',
             'submenu' => [
 					'Request List (Normal)' => [
                     'title' => 'menus.Request List (Normal)',
                     'icon' => 'fa fa-list',
-                    'permission_route' => 'reports',
+                    'permission_route' => 'quarter.list.normal',
                     'route' => [
-                        'reports'
+                        'quarterlistnormal'
                     ],
-                    'link' => 'reports',
+                    'link' => 'quarter.list.normal',
                 ],
 					'Request List (Priority)' => [
                     'title' => 'menus.Request List (Priority)',
                     'icon' => 'fa fa-list',
-                    'permission_route' => 'reports',
+                    'permission_route' => 'quarter.list.priority',
                     'route' => [
-                        'reports'
+                        'quarterlistpriority'
                     ],
-                    'link' => 'reports',
+                    'link' => 'quarter.list.priority',
                 ],
 					'New Request' => [
                     'title' => 'menus.New Request',
                     'icon' => 'fa fa-paper-plane',
-                    'permission_route' => 'reports',
+                    'permission_route' => 'quarter.list.new',
                     'route' => [
-                        'reports'
+                        'quarterlistnew'
                     ],
-                    'link' => 'reports',
+                    'link' => 'quarter.list.new',
                 ],
 			]
         ],
@@ -54,36 +57,39 @@ return [
             'icon' => 'icon-home',
             'permission_route' => 'reports',
             'route' => [
-                'reports'
+                'reports',
+                'waitinglist',
+                'allotmentlist',
+                'vacantlist'
             ],
-            'link' => 'reports',
+            'link' => '#',
             'submenu' => [
 				'Waiting List' => [
                     'title' => 'menus.Waiting List',
                     'icon' => 'fa fa-cogs ',
-                    'permission_route' => 'reports',
+                    'permission_route' => 'waiting.list',
                     'route' => [
-                        'reports'
+                        'waitinglist'
                     ],
-                    'link' => 'reports',
+                    'link' => 'waiting.list',
                 ],
 				'Quarter Allotment' => [
                     'title' => 'menus.Quarter Allotment ',
                     'icon' => 'fa fa-cogs ',
-                    'permission_route' => 'reports',
+                    'permission_route' => 'allotment.list',
                     'route' => [
-                        'reports'
+                        'allotmentlist'
                     ],
-                    'link' => 'reports',
+                    'link' => 'allotment.list',
                 ],
 					'Vacant Quarter List' => [
                     'title' => 'menus.Vacant Quarter List',
                     'icon' => 'fa fa-cogs ',
-                    'permission_route' => 'reports',
+                    'permission_route' => 'vacant.list',
                     'route' => [
-                        'reports'
+                        'vacantlist'
                     ],
-                    'link' => 'reports',
+                    'link' => 'vacant.list',
                 ],
 				
 				 
@@ -126,7 +132,9 @@ return [
             'icon' => 'nav-icon fa fa-Home',
             'permission_route' => 'user.Quarters',
             'route' => [
-                'user.Quarters'
+                'user.Quarters',
+                'quartersuser',
+                'user.Quarter.higher'
             ],
             'link' => 'user.Quarters',
             'submenu' => [

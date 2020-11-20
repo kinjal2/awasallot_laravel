@@ -8,4 +8,11 @@ class File_list extends Model
 {
     //
     protected $table ='master.file_list';
+
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'uid', 'id');
+    }
 }
+
