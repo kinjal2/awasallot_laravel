@@ -18,6 +18,8 @@
         "laravel/ui": "2.4",
         "php-on-couch/php-on-couch": "^3.0",
         "yajra/laravel-datatables": "^1.5",
+        "yajra/laravel-datatables-buttons": "^4.10",
+        "yajra/laravel-datatables-editor": "^1.22",
         "yajra/laravel-datatables-oracle": "^9.11"
     },
     "require-dev": {

@@ -47,7 +47,7 @@ Route::post('saveHigherCategoryReq', ['uses' => 'QuartersController@saveHigherCa
 Route::get('quartershistory', [ 'as' => 'user.Quarter.history', 'uses' => 'QuartersController@index']);
 Route::get('request-history', ['uses' => 'QuartersController@requestHistory']);
 
-Route::get('generate-pdf', ['uses' => 'QuartersController@generate_pdf']);
+Route::get('generate-pdf/{requestid}/revision_id', [ 'as' => 'generate.pdf', 'uses' => 'QuartersController@generate_pdf']);
 Route::get('uploaddocument/:any', ['uses' => 'QuartersController@uploaddocument']);
 Route::post('saveuploaddocument', ['uses' => 'QuartersController@saveuploaddocument']);
 Route::post('deletedoc', ['uses' => 'QuartersController@deletedoc']);
@@ -63,16 +63,26 @@ Route::get('quarterlistnew', [ 'as' => 'quarter.list.new', 'uses' => 'QuartersCo
 Route::get('waitinglist', [ 'as' => 'waiting.list', 'uses' => 'ReportsController@waitinglist']);
 Route::get('allotmentlist', [ 'as' => 'allotment.list', 'uses' => 'ReportsController@allotmentlist']);
 Route::get('vacantlist', [ 'as' => 'vacant.list', 'uses' => 'ReportsController@vacantlist']);
-Route::get('waiting-list', ['uses' => 'ReportsController@getWaitingList']);
-Route::get('allotment-list', ['as' => 'allotment-list', 'uses' => 'ReportsController@getAllotmentList']);
+Route::post('waiting-list', [ 'as' => 'waitinglist.data','uses' => 'ReportsController@getWaitingList']);
+Route::post('getdocumentdata', [ 'as' => 'getdocumentdata','uses' => 'ReportsController@getdocumentdata']);
+
+
+
+Route::post('allotment-list', ['as' => 'allotment-list', 'uses' => 'ReportsController@getAllotmentList']);
 Route::post('vacant-list', ['as' => 'vacant-list', 'uses' => 'ReportsController@getVacantList']);
 
 Route::post('normalquarter-list', ['as' => 'normalquarter-list', 'uses' => 'QuartersController@getNormalquarterList']);
 
+Route::post('vacant_quarter', ['as' => 'vacant_quarter', 'uses' => 'ReportsController@vacant_quarter']);
+Route::get('quarter-occupancy', ['as' => 'quarter.occupancy', 'uses' => 'ReportsController@quarteroccupancy']);
+
+Route::post('quarteroccupancylist', ['as' => 'quarter.occupancy.list', 'uses' => 'ReportsController@getquarteroccupancy']);
+
 Route::get('reports', [ 'as' => 'reports', 'uses' => 'ReportsController@index']);
 Route::get('user', [ 'as' => 'user', 'uses' => 'UserController@index']);
 Route::get('getUserList', ['uses'=>'UserController@getList', 'as'=>'getUserList']);
-
+//Route::get('users', [ 'as' => 'users', 'uses' => 'UserController@index']);  
+//Route::resource('users', 'UserController');
 Route::get('grasapi', [ 'as' => 'grasapi', 'uses' => 'Auth\LoginController@apiLogin']);
 
 

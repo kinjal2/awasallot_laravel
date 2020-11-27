@@ -1,5 +1,5 @@
 <?php
-Use Session;
+//Use Session;
 Use App\Quarter;
 Use App\Area;
 Use App\User;
@@ -158,6 +158,18 @@ function checkRequestIs($request_array) {
         foreach ($request_array as $uri) {
             if (Request::is($uri)) {
                 $is = 'active';
+                break;
+            }
+        }
+    }
+    return $is;
+}
+function checkRequestIs_open($request_array){
+    $is = '';
+    if (empty($request_array) === false) {
+        foreach ($request_array as $uri) {
+            if (Request::is($uri)) {
+                $is = 'menu-open';
                 break;
             }
         }

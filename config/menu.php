@@ -6,7 +6,7 @@ return [
             'icon' => 'nav-icon fas fa-tachometer-alt',
             'permission_route' => 'admin.dashboard.admindashboard',
             'route' => [
-                'admin.dashboard.admindashboard'
+                'admindashboard'
             ],
             'link' => 'admin.dashboard.admindashboard',
             'submenu' => []
@@ -60,13 +60,14 @@ return [
                 'reports',
                 'waitinglist',
                 'allotmentlist',
-                'vacantlist'
+                'vacantlist',
+                'quarter-occupancy'
             ],
             'link' => '#',
             'submenu' => [
 				'Waiting List' => [
                     'title' => 'menus.Waiting List',
-                    'icon' => 'fa fa-cogs ',
+                    'icon' => 'fa fa-spinner',
                     'permission_route' => 'waiting.list',
                     'route' => [
                         'waitinglist'
@@ -75,7 +76,7 @@ return [
                 ],
 				'Quarter Allotment' => [
                     'title' => 'menus.Quarter Allotment ',
-                    'icon' => 'fa fa-cogs ',
+                    'icon' => 'fa fa-thumbs-up',
                     'permission_route' => 'allotment.list',
                     'route' => [
                         'allotmentlist'
@@ -84,14 +85,22 @@ return [
                 ],
 					'Vacant Quarter List' => [
                     'title' => 'menus.Vacant Quarter List',
-                    'icon' => 'fa fa-cogs ',
+                    'icon' => 'fa fa-users ',
                     'permission_route' => 'vacant.list',
                     'route' => [
                         'vacantlist'
                     ],
                     'link' => 'vacant.list',
                 ],
-				
+                'Quarter Occupancy' => [
+                    'title' => 'menus.Quarter Occupancy',
+                    'icon' => 'fa fa-bars',
+                    'permission_route' => 'quarter.occupancy',
+                    'route' => [
+                        'quarter-occupancy'
+                    ],
+                    'link' => 'quarter.occupancy',
+                ],
 				 
 			]
         ],
@@ -103,6 +112,16 @@ return [
                 'user'
             ],
             'link' => 'user',
+            'submenu' => []
+        ],
+        'Logout' => [
+            'title' => 'menus.Logout',
+            'icon' => 'nav-icon fas fa-tachometer-alt',
+            'permission_route' => 'logout',
+            'route' => [
+                'logout'
+            ],
+            'link' => 'logout',
             'submenu' => []
         ],
 	],

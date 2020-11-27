@@ -24,7 +24,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library  --> 
                 </a>
-          <li class="nav-item has-treeview  ">
+          <li class="nav-item has-treeview  {{checkRequestIs_open($menu['route'])}}">
             <a href="{{$menu['link'] === '#' ? 'javascript:;' :route($menu['link'])}}"  class="nav-link  {{checkRequestIs($menu['route'])}}">
               <i class="{{$menu['icon']}}"></i>
               <p>
@@ -34,7 +34,7 @@
               </p>
             </a>
 			  @if(isset($menu['submenu']) && !empty($menu['submenu']))
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview ">
 			  @foreach($menu['submenu'] as $submenu)
               <li class="nav-item  ">
                 <a href="{{$submenu['link'] === '#' ? 'javascript:;' :route($submenu['link'])}}" class="nav-link {{checkRequestIs($submenu['route'])}}">

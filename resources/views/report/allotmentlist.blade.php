@@ -36,7 +36,7 @@
 			<div class="col-4">
 				<div class="form-group">
 				<label for="maratial_status">Quarter Type</label>
-  {{ Form::select('quartertype',[null=>__('common.select')]+$quartertype ,'',['id'=>'quartertype','class'=>'form-control']) }}                                       
+  {{ Form::select('quartertype[]',$quartertype ,'',['id'=>'quartertype','class'=>'form-control select2','multiple'=>"multiple"]) }}                                       
 	</div>
   </div>  </div>
 <div  style="overflow-x:auto;">
@@ -53,8 +53,6 @@
                     <th>Office</th>
                     <th>Possesion Date</th>
                     <th>Image</th>
-                    
-                            
                     </tr>
                   </thead>
                   <tbody>
@@ -82,16 +80,14 @@
         processing: true,
         serverSide: true,
         ajax: {
-      url: "{{ route('allotment-list') }}",
-    
-    data: function (d) {
+        url: "{{ route('allotment-list') }}",
+        type:"POST",
+        data: function (d) { 
                 d.quartertype = $('#quartertype').val()
               
             }
-  },
-        
-       
-        columns: [
+        },
+     columns: [
             {data: 'requesttype', name: 'requesttype'},
             {data: 'quartertype', name: 'quartertype'},
             {data: 'tableof', name: 'tableof'},

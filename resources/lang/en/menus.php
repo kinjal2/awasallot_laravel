@@ -16,5 +16,6 @@ return array(
     'New Quarter'=>'New Quarter',
     'Higher Category Quarter'=>'Higher Category Quarter Request',
     'Request History'=>'Request History',
+    'Quarter Occupancy'=>'Quarter Occupancy',
    
 );

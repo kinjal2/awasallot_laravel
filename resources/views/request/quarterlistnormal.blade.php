@@ -84,7 +84,7 @@
         columns: [
             {data: 'requesttype', name: 'requesttype'},
             {data: 'quartertype', name: 'quartertype'},
-           {data: 'inward_no', name: 'inward_no'},
+            {data: 'inward_no', name: 'inward_no'},
             {data: 'inward_date', name: 'inward_date'},
             {data: 'name', name: 'name'},
             {data: 'office', name: 'office'},

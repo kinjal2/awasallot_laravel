@@ -176,7 +176,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
-        
+        Yajra\DataTables\ButtonsServiceProvider::class,
 
     ],
 

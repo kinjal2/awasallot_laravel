@@ -32,7 +32,7 @@
               <!-- form start -->
           
 	<div class="card-body"> 
-
+  <div  style="padding-left: 32%;"><button type="submit" class="btn btn-success vacantquarter">Vacant Quarters</button></div>
 <div  style="overflow-x:auto;">
 
 			<table class="table table-bordered" id="vacantlist">
@@ -107,7 +107,7 @@
       "width": "4%"
  }
 ],
-         initComplete: function () {
+ initComplete: function () {
             this.api().columns().every(function () {
                 var column = this;
                 var input = document.createElement("input");
@@ -116,7 +116,32 @@
                     column.search($(this).val()).draw();
                 });
             });
-        }    
+        } , 
+   fnDrawCallback: function (oSettings) { 
+      $( ".vacantquarter" ).click(function() {
+       categories = []; // reset 
+      $('input[name="quartertype[]"]:checked').each(function()
+        { 
+           categories.push($(this).val());
+        });
+        $.ajax({
+          'type': 'POST',
+            url:"{{ route('vacant_quarter') }}",
+            data: {
+              category:categories
+            },
+            dataType: 'json',
+            success: function (data) {
+              table.draw(true);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+
+       
+    }); 
+        }        
     });
   
  

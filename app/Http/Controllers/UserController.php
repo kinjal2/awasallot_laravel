@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use App\User;
 use Yajra\DataTables\DataTables;
 use DB;
+use App\DataTables\UsersDataTable;
+use App\DataTables\UsersDataTablesEditor;
 
 class UserController extends Controller
 {
@@ -42,4 +44,15 @@ class UserController extends Controller
        
       
     }
+
+  /*  public function index(UsersDataTable $dataTable)
+    {
+        $this->_viewContent['page_title'] = "User";
+        return $dataTable->render('user.index',$this->_viewContent);
+    }
+
+    public function store(UsersDataTablesEditor $editor)
+    {
+        return $editor->process(request());
+    }*/
 }

@@ -51,7 +51,9 @@ $.ajaxSetup({
 @stack('footer-script')
 <script type="text/javascript">
 $(document).ready(function () {
-       
         @stack('page-ready-script')
     });
+    $('.select2').select2({
+  selectOnClose: true
+});
 </script>

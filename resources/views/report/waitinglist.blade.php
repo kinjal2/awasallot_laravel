@@ -33,38 +33,26 @@
           
 	<div class="card-body"> 
 
+
   <div class="row">
-              @php $tdcounter = 0 @endphp
-              @foreach($quartertype as $q)
-              @if($tdcounter == 0) 
-              <div class="col-3">
-              <div class="form-check">
-            <input type="checkbox" class="form-check-input" value="{{$q->quartertype}}" name='quartertype[]'>
-            <label class="form-check-label" for="exampleCheck1">{{$q->quartertype}}</label>
-            </div> </div>
-            @php    $tdcounter++ @endphp
-        
-         
-            @elseif($tdcounter == 4)
-              <div class="col-3">
-              <div class="form-check">
-            <input type="checkbox" class="form-check-input" value="{{$q->quartertype}}" name='quartertype[]'>
-            <label class="form-check-label" for="exampleCheck1">{{$q->quartertype}}</label>
-            </div> </div>
-            @php    $tdcounter++ @endphp
-        
-         
-         @else
-         <div class="col-3">
-              <div class="form-check">
-            <input type="checkbox" class="form-check-input" value="{{$q->quartertype}}"   name='quartertype[]' >
-            <label class="form-check-label" for="exampleCheck1">{{$q->quartertype}}</label>
-            </div> </div>
-            @php    $tdcounter++ @endphp
-            @endif
-         
-  @endforeach   
-  </div>
+			<div class="col-4">
+				<div class="form-group">
+				<label for="quartertype">Quarter Type</label>
+  {{ Form::select('quartertype[]',$quartertype ,'',['id'=>'quartertype','class'=>'form-control select2','multiple'=>"multiple"]) }}                                       
+	</div>
+  </div> 
+  <div class="col-4" style="padding-top: 30px;">
+				<div class="form-group" >
+				<label for="Reset"></label>
+        <input type="button" id="btnReset" class="btn btn-primary" value="Reset" />
+       	</div>
+  </div> 
+  
+
+
+  
+  
+   </div>
 <div  style="overflow-x:auto;">
 
 			<table class="table table-bordered" id="waitinglist">
@@ -98,7 +86,26 @@
             </div>
             <!-- /.card -->
 
-
+<!-- Delete Product Modal -->
+<div class="modal" id="DocumentModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">View Document</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+               <div id='viewdata'></div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Close Modal</button>
+            </div>
+        </div>
+    </div>
+</div>
 	   
 	
 @endsection
@@ -112,8 +119,14 @@
         processing: true,
         serverSide: true,
       
-        ajax: "{{ url('waiting-list') }}",
-       
+        ajax: {
+       url: "{{ route('waitinglist.data') }}",
+       type:"POST",
+    data: function (d) { 
+                d.quartertype = $('#quartertype').val()
+              
+            }
+  },
         columns: [
             {data: 'requesttype', name: 'requesttype'},
             {data: 'quartertype', name: 'quartertype'},
@@ -130,22 +143,40 @@
             {data: 'address', name: 'address'},
              {data: 'action', name: 'action', orderable: true, 
                 searchable: true},
-      
-           
         ]
     });
-    var categories = [];
-    $('input[name="quartertype[]"]').on('change',function () {
-      e.preventDefault();
-        categories = []; // reset 
-
-        $('input[name="quartertype[]"]:checked').each(function()
-        { alert($(this).val());
-            categories.push($(this).val());
-        });
-     table.ajax.reload();
-
-    });	   
+    $('#quartertype').on('change',function (e) {
+      
+      table.ajax.reload();
+ 
+     });	 
+     $('#btnReset').on('click',function (e) 
+     {   
+       $("#quartertype").val("").trigger("change");
+      });	 
+      $('body').on('click', '.getdocument', function() 
+      { 
+          var uid = $(this).attr('data-uid');
+          var type = $(this).attr('data-type');
+          var rivision_id = $(this).attr('data-rivision_id');
+          var requestid = $(this).attr('data-requestid');
+          $.ajax({
+            url: "{{ route('getdocumentdata') }}",
+            method: 'POST',
+            data: {uid:uid,type:type,rivision_id:rivision_id,requestid:requestid},
+            success: function(result)
+            {
+              $("#viewdata").html(result);  
+              $('#DocumentModal').show();	
+      
+            }
+          });
+      });
+      $('body').on('click', '.btn', function() 
+      {   
+         $('#DocumentModal').hide();	
+      });
+      
     </script>
-</script>
+
 @endpush
