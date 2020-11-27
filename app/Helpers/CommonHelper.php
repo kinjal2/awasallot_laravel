@@ -31,7 +31,12 @@ if(!function_exists('getBasicPay')) {
     function getBasicPay()
     { 
         $basic_pay=Session::get('basic_pay');
+        if($basic_pay==''){
+            $quarterselect= Quarter::get();
+        }
+        else {
         $quarterselect= Quarter::where('bpay_from', '<=',$basic_pay)->where('bpay_to', '>=',$basic_pay)->get();
+        }
         $quarterdetails = [];
         foreach($quarterselect as $q)
         { 

@@ -1,105 +1,90 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 3 | Registration Page</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{!! URL::asset(Config::get('app.theme_path').'/plugins/fontawesome-free/css/all.min.css') !!}">
+  <!-- Ionicons -->
+   <!-- Theme style -->
+  <link rel="stylesheet" href="{!! URL::asset(Config::get('app.theme_path').'/dist/css/adminlte.min.css') !!}">
+  </head>
+<body class="hold-transition sidebar-collapse">
+<div class="">
+  
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+ <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="background-color:#05619b;color:white;">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">  
+	  <li><img src="{{ URL::asset('images/national_emblem.gif') }}" height="100px"></li>
+      <li class="nav-item d-none d-sm-inline-block" style="padding-top: 10px; padding-left: 10px;">
+      <h3>Road & Building Department</h3>
+    Estate Management System
+      </li>    
+    </ul>
+	
+	<ul class="navbar-nav navbar-nav ml-auto">
+     
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="../../index3.html" class="nav-link" style="color:white;"><i class="fa fa-home"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link" style="color:white;">Login</a>
+      </li>
+	   <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link" style="color:white;">Register</a>
+      </li>	
+	    <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link" style="color:white;">Downloads</a>
+      </li>	
+ <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link" style="color:white;">Department User Login</a>
+      </li>		  
+    </ul>
+ </nav>
+ 
+  
+  <div>
+    <div class="card-body register-card-body">
+      
+	  
 
-            .full-height {
-                height: 100vh;
-            }
+		<div class="col-lg-12">
+           
+		   <h1 class="m-0 text-dark">Home</h1>
+		   
+		   <br>
+		   
+            <div class="card card-primary card-outline">
+              <div class="card-body">
+                <h5 class="card-title"><b><h4>સૂચના</h4></b></h5>
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up the bulk of the card's
+                  content.
+                </p>
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+              </div>
+            </div><!-- /.card -->
+          </div>
+		
+	</div>
+    <!-- /.form-box -->
+  </div><!-- /.card -->
+</div>
+<!-- /.register-box -->
 
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                        @if (Route::has('register'))
-                            <a href="https://staging2.gujarat.gov.in/SSOtest/SSO.aspx?Rurl={{ route('grasapi') }}"> Department User Login</a>
-                        @endif
-                       
-
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </body>
+<!-- jQuery -->
+<script src="{{ URL::asset(Config::get('app.theme_path').'/plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ URL::asset(Config::get('app.theme_path').'/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ URL::asset(Config::get('app.theme_path').'/dist/js/adminlte.min.js') }}"></script>
+</body>
 </html>

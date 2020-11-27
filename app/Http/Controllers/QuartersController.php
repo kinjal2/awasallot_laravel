@@ -921,4 +921,11 @@ $requestdate ="";
     })
     ->make(true);
     }
+    public function quarterNewRequest()
+    {
+        $this->_viewContent['page_title'] = "Quarter Request Details";
+        
+        return view('request/newQuarterRequest',$this->_viewContent);
+
+    }
 }
