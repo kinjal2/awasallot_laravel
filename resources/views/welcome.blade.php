@@ -12,7 +12,9 @@
   <!-- Ionicons -->
    <!-- Theme style -->
   <link rel="stylesheet" href="{!! URL::asset(Config::get('app.theme_path').'/dist/css/adminlte.min.css') !!}">
-  </head>
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
 <body class="hold-transition sidebar-collapse">
 <div class="">
   
