@@ -114,6 +114,16 @@ return [
             'link' => 'user',
             'submenu' => []
         ],
+         'Important link' => [
+            'title' => 'menus.Important link',
+            'icon' => 'nav-icon fas fa-link ',
+            'permission_route' => 'logout',
+            'route' => [
+                'logout'
+            ],
+            'link' => 'logout',
+            'submenu' => []
+        ],
         'Logout' => [
             'title' => 'menus.Logout',
             'icon' => 'nav-icon fas fa-tachometer-alt',
@@ -188,6 +198,7 @@ return [
 
             ]
         ],
+       
         'Logout' => [
             'title' => 'menus.Logout',
             'icon' => 'nav-icon fas fa-tachometer-alt',

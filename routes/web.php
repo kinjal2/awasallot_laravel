@@ -23,7 +23,7 @@ Route::get('locale/{locale}', function ($locale){
 //Route::post('post-login', 'AuthController@postLogin');
 
 Auth::routes();
-
+Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
 
 
@@ -52,6 +52,9 @@ Route::get('uploaddocument/:any', ['uses' => 'QuartersController@uploaddocument'
 Route::post('saveuploaddocument', ['uses' => 'QuartersController@saveuploaddocument']);
 Route::post('deletedoc', ['uses' => 'QuartersController@deletedoc']);
 
+Route::get('download/:any', [ 'as' => 'download.pdf', 'uses' => 'ReportsController@download']);
+
+
 
 
 
@@ -77,6 +80,9 @@ Route::post('vacant_quarter', ['as' => 'vacant_quarter', 'uses' => 'ReportsContr
 Route::get('quarter-occupancy', ['as' => 'quarter.occupancy', 'uses' => 'ReportsController@quarteroccupancy']);
 
 Route::post('quarteroccupancylist', ['as' => 'quarter.occupancy.list', 'uses' => 'ReportsController@getquarteroccupancy']);
+
+Route::get('editquarter/{id}', ['as' => 'editquarter', 'uses' => 'QuartersController@editquarter']);
+
 
 Route::get('reports', [ 'as' => 'reports', 'uses' => 'ReportsController@index']);
 Route::get('user', [ 'as' => 'user', 'uses' => 'UserController@index']);

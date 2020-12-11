@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Validator,Redirect,Response;
-use  Request;
+use Illuminate\Http\Request;
 use App\Tquarterrequestb;
 use App\Tquarterrequesta;
 use App\Tquarterrequestc;
@@ -918,8 +918,8 @@ $requestdate ="";
    
     ->addColumn('action', function($row){
                          
-        
-        $btn1 = '<a href="'.\route('editquarter', $row->requestid).'" class="btn btn-success "><i class="fas fa-edit"></i></a> ';
+                         
+        $btn1 = '<a href="'.\URL::action('QuartersController@editquarter').'" class="btn btn-success "><i class="fas fa-edit"></i></a> ';
          return $btn1;
      })
      ->addColumn('delete', function($row){
@@ -932,13 +932,8 @@ $requestdate ="";
     public function quarterNewRequest()
     {
         $this->_viewContent['page_title'] = "Quarter Request Details";
+        
         return view('request/newQuarterRequest',$this->_viewContent);
-
-    }
-    public function editquarter(request $request){
-   // echo $url_segment = \Request::segment(2);
-   $this->_viewContent['page_title'] = "Quarter Edit Details";
-   return view('request/updateQuarterRequest',$this->_viewContent);
 
     }
 }

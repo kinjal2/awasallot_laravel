@@ -18,14 +18,31 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+  a.logindata {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+  font-size: 20px;
+  padding-right: 8px;
+}
+
+  </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+       
+ <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="background-color:#05619b;color:white;">
+    <!-- Left navbar links -->
+
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+            <ul class="navbar-nav">  
+	  <li><img src="{{ URL::asset('images/national_emblem.gif') }}" height="100px"></li>
+      <li class="nav-item d-none d-sm-inline-block" style="padding-top: 10px; padding-left: 10px;">
+      <h3>Road & Building Department</h3>
+    Estate Management System
+      </li>    
+    </ul>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -41,11 +58,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="logindata" href="{{ route('login') }}"  >{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class=" logindata" href="{{ route('register') }}" >{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -76,5 +93,28 @@
             @yield('content')
         </main>
     </div>
+
 </body>
+<div class="page-footer " style="padding-top: 200px;">
+            @include(Config::get('app.theme').'.template.footer')
+        </div>
+<!-- jQuery -->
+<script src="{{ URL::asset(Config::get('app.theme_path').'/plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ URL::asset(Config::get('app.theme_path').'/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- InputMask -->
+<script src="{{ URL::asset(Config::get('app.theme_path').'/plugins/moment/moment.min.js') }}"></script>
+<script src="{{ URL::asset(Config::get('app.theme_path').'/plugins/inputmask/min/jquery.inputmask.bundle.min.js') }}"></script>
+<!-- date-range-picker -->
+<script src="{{ URL::asset(Config::get('app.theme_path').'/plugins/daterangepicker/daterangepicker.js') }}"></script>
+
+        <script type="text/javascript">
+$(function() {              
+           // Bootstrap DateTimePicker v4
+           $('.dateformat').datetimepicker({
+                 format: 'DD-MM-YYYY'
+           });
+        });
+        </script>
+
 </html>

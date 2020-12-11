@@ -82,19 +82,18 @@
         
        
         columns: [
-            {data: 'requesttype', name: 'requesttype'},
-            {data: 'quartertype', name: 'quartertype'},
-            {data: 'inward_no', name: 'inward_no'},
-            {data: 'inward_date', name: 'inward_date'},
-            {data: 'name', name: 'name'},
-            {data: 'office', name: 'office'},
-            {data: 'contact_no', name: 'contact_no'}, 
-            {data: 'email', name: 'email'},
-            {data: 'request_date', name: 'request_date'},
-           
-      
-           
-        ]
+            {data: 'requesttype'},
+            {data: 'quartertype'},
+            {data: 'inward_no'},
+            {data: 'inward_date'},
+            {data: 'name'},
+            {data: 'office'},
+            {data: 'contact_no'}, 
+            {data: 'email'},
+            {data: 'request_date'},
+            {data: 'action'},
+            {data: 'delete'},
+         ]
     });
   
    

@@ -22,10 +22,20 @@ function getYesNo()
 if(!function_exists('getMaratialstatus')) {
 function getMaratialstatus()
 {
-    $yesno = [];
-    $yesno = ['U' => "Unmarride", 'M' => "Married"];
-    return $yesno;
+    $maratialstatus = [];
+    $maratialstatus = ['U' => "Unmarride", 'M' => "Married"];
+    return $maratialstatus;
 }
+}
+ if(!function_exists('getupdatestatus')) 
+ {
+   function getupdatestatus()
+   {
+    $updatestatus = [];
+    $updatestatus = ['1' => "Varified And Proper", '0' => "Varified But Have Issue"];
+    return $updatestatus;
+       
+   } 
 }
 if(!function_exists('getBasicPay')) {
     function getBasicPay()

@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="officename" class="col-md-4 col-form-label text-md-right">{{ __('Mobile No') }}</label>
+                            <label for="mobile" class="col-md-4 col-form-label text-md-right">{{ __('Mobile No') }}</label>
                             <div class="col-md-6">
                                 <input id="mobile" type="text" class="form-control @error('mobile') is-invalid @enderror" name="mobile" value="{{ old('mobile') }}" required  autofocus>
 
@@ -121,3 +121,4 @@
     </div>
 </div>
 @endsection
+

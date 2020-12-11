@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use App\User;
 class RegisterController extends Controller
 {
     
@@ -72,6 +72,10 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+			'date_of_birth'=>$data['birthdate'], 
+			'designation'=>$data['designation'], 
+			'office'=>$data['officename'], 
+			'designation'=>$data['mobile'], 
         ]);
     }
 

@@ -17,5 +17,6 @@ return array(
     'Higher Category Quarter'=>'Higher Category Quarter Request',
     'Request History'=>'Request History',
     'Quarter Occupancy'=>'Quarter Occupancy',
-   
+    'Important link'=>'Important link',
+    'Quarter Type'=>'Quarter Type',
 );

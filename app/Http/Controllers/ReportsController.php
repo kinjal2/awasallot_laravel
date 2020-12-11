@@ -206,12 +206,17 @@ class ReportsController extends Controller
        
         $html = '<table border="1" width="100%" class="table"><thead><tr><th>Document Name</th><tr></thead>';
         foreach ($first as $f){ 
+        
+
             $html .= '<tr>
-            <td><a href="#" target="_blank"  doc_id='.$f->doc_id.' rev_id='.$f->rev_id.'>'.$f->document_name.'</a></td></tr>';
+            <td><a href="' . \URL::action('ReportsController@download') . "/" . $f->doc_id . "/" . $f->rev_id . '" target="_blank"  doc_id='.$f->doc_id.' rev_id='.$f->rev_id.'>'.$f->document_name.'</a></td></tr>';
         }   
         $html .= '</table>';
         echo $html;
 
+    }
+    public function download(request $request){
+     // echo   Request::segment(1);
     }
     public function html() {
         return $this->builder()

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Session;
 use SoapClient;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 class LoginController extends Controller
 {
@@ -71,6 +72,13 @@ class LoginController extends Controller
 
         } else {
            // dd(\Auth::attempt($credentials, $remember));
+           $query = User::select('email')->where('email', '=', $request->email)->whereNull('email_verified_at')->get();
+            if(!empty($query))
+            {
+               $user= new  User;
+                $user->sendEmailVerificationNotification($request->email,Hash::make($request->password));
+            }
+           
             if (\Auth::attempt($credentials, $remember)) 
             {   
               //  dd("hello");
