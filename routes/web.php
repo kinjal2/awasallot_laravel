@@ -87,8 +87,10 @@ Route::get('editquarter/{id}', ['as' => 'editquarter', 'uses' => 'QuartersContro
 Route::get('reports', [ 'as' => 'reports', 'uses' => 'ReportsController@index']);
 Route::get('user', [ 'as' => 'user', 'uses' => 'UserController@index']);
 Route::get('getUserList', ['uses'=>'UserController@getList', 'as'=>'getUserList']);
-//Route::get('users', [ 'as' => 'users', 'uses' => 'UserController@index']);  
-//Route::resource('users', 'UserController');
+//Route::get('users', [ 'as' => 'users', 'uses' => 'UserController@index']); 
+Route::get('quartertypemaster', ['uses' => 'QuarterTypeController@index', 'as' => 'quartertypemaster.index']); 
+Route::get('quartertypemaster','QuarterTypeController@getList');
+Route::resource('quartertypemaster', 'QuarterTypeController');
 Route::get('grasapi', [ 'as' => 'grasapi', 'uses' => 'Auth\LoginController@apiLogin']);
 
 

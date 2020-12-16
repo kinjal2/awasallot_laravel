@@ -1,10 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Importantlink;
-
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Controller;
 class ImportantlinkController extends Controller
 {
     public function __construct()
@@ -19,7 +17,6 @@ class ImportantlinkController extends Controller
      */
     public function index()
     {    
-	   
-       dd('jkmhjk');
+	     dd('jkmhjk');
     }
 }

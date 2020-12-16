@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use Session;
+use Session;
 class HomeController extends Controller
 {
     /**
@@ -25,6 +25,16 @@ class HomeController extends Controller
     public function index()
     { 
       
-      echo "ghgf";
+      if( Session::get('is_admin') == true)
+      {
+          return  \Redirect::route('admin.dashboard.admindashboard'); 
+        
+      }
+      else{
+         return  \Redirect::route('user.dashboard.userdashboard'); 
+     
+
+       }
+
     }
 }

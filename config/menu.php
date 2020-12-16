@@ -117,12 +117,24 @@ return [
          'Important link' => [
             'title' => 'menus.Important link',
             'icon' => 'nav-icon fas fa-link ',
-            'permission_route' => 'logout',
+            'permission_route' => 'quartertypemaster*',
             'route' => [
-                'logout'
+                'quartertypemaster'
             ],
-            'link' => 'logout',
-            'submenu' => []
+            'link' => '#',
+            'submenu' => [
+                'Quarter Type' => [
+                    'title' => 'menus.Quarter Type',
+                    'icon' => 'fa fa-cogs ',
+                    'permission_route' => 'quartertypemaster*',
+                    'route' => [
+                        'quartertypemaster'
+                    ],
+                    'link' => 'quartertypemaster.index',
+                ],
+
+
+            ]
         ],
         'Logout' => [
             'title' => 'menus.Logout',

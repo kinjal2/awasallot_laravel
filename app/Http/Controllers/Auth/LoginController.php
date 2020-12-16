@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Session;
 use SoapClient;
 use App\User;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 class LoginController extends Controller
 {
@@ -72,11 +71,11 @@ class LoginController extends Controller
 
         } else {
            // dd(\Auth::attempt($credentials, $remember));
-           $query = User::select('email')->where('email', '=', $request->email)->whereNull('email_verified_at')->get();
+           $query = User::select('email','password')->where('email', '=', $request->email)->whereNull('email_verified_at')->first();
             if(!empty($query))
             {
                $user= new  User;
-                $user->sendEmailVerificationNotification($request->email,Hash::make($request->password));
+              //  $user->sendEmailVerificationNotification();
             }
            
             if (\Auth::attempt($credentials, $remember)) 
@@ -84,14 +83,11 @@ class LoginController extends Controller
               //  dd("hello");
               //  dd(\Auth::user()->is_admin);
                 $user_id = \Auth::user()->id;  
+                $is_admin = \Auth::user()->is_admin;  
                 Session::put('uid',$user_id);
-                if(\Auth::user()->is_admin == true)
-                {
-                    return  \Redirect::route('admin.dashboard.admindashboard'); 
-                }
-                else{
-                    return  \Redirect::route('user.dashboard.userdashboard'); 
-                 }
+                Session::put('is_admin',$is_admin);
+                return redirect('/home');
+               
             }
             else{
                // dd("gfhg");
