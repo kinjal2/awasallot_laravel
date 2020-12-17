@@ -917,9 +917,9 @@ $requestdate ="";
     })
    
     ->addColumn('action', function($row){
-                         
+        $btn1 =   "edit";                  
         
-        $btn1 = '<a href="'.\route('editquarter', $row->requestid).'" class="btn btn-success "><i class="fas fa-edit"></i></a> ';
+      //  $btn1 = '<a href="'.\route('editquarter', $row->requestid).'" class="btn btn-success "><i class="fas fa-edit"></i></a> ';
          return $btn1;
      })
      ->addColumn('delete', function($row){

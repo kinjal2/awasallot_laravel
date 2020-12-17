@@ -88,9 +88,18 @@ Route::get('reports', [ 'as' => 'reports', 'uses' => 'ReportsController@index'])
 Route::get('user', [ 'as' => 'user', 'uses' => 'UserController@index']);
 Route::get('getUserList', ['uses'=>'UserController@getList', 'as'=>'getUserList']);
 //Route::get('users', [ 'as' => 'users', 'uses' => 'UserController@index']); 
-Route::get('quartertypemaster', ['uses' => 'QuarterTypeController@index', 'as' => 'quartertypemaster.index']); 
-Route::get('quartertypemaster','QuarterTypeController@getList');
-Route::resource('quartertypemaster', 'QuarterTypeController');
+ 
+//quarter type
+Route::get('masterquartertype', ['uses' => 'QuarterTypeController@index', 'as' => 'masterquartertype.index']); 
+Route::post('getList1','QuarterTypeController@getList');
+Route::resource('masterquartertype', 'QuarterTypeController');
+
+//area
+Route::get('masterarea', ['uses' => 'AreaController@index', 'as' => 'masterarea.index']); 
+Route::post('getList','AreaController@getList');
+Route::resource('masterarea', 'AreaController');
+
+
 Route::get('grasapi', [ 'as' => 'grasapi', 'uses' => 'Auth\LoginController@apiLogin']);
 
 

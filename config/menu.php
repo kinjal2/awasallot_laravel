@@ -41,7 +41,7 @@ return [
                     ],
                     'link' => 'quarter.list.priority',
                 ],
-					'New Request' => [
+				/*	'New Request' => [
                     'title' => 'menus.New Request',
                     'icon' => 'fa fa-paper-plane',
                     'permission_route' => 'quarter.list.new',
@@ -49,7 +49,7 @@ return [
                         'quarterlistnew'
                     ],
                     'link' => 'quarter.list.new',
-                ],
+                ],*/
 			]
         ],
 		 'Reports' => [
@@ -117,20 +117,30 @@ return [
          'Important link' => [
             'title' => 'menus.Important link',
             'icon' => 'nav-icon fas fa-link ',
-            'permission_route' => 'quartertypemaster*',
+            'permission_route' => 'masterquartertype*',
             'route' => [
-                'quartertypemaster'
+                'masterquartertype',
+                'masterarea'
             ],
             'link' => '#',
             'submenu' => [
                 'Quarter Type' => [
                     'title' => 'menus.Quarter Type',
-                    'icon' => 'fa fa-cogs ',
-                    'permission_route' => 'quartertypemaster*',
+                    'icon' => 'fa fa-home',
+                    'permission_route' => 'masterquartertype*',
                     'route' => [
-                        'quartertypemaster'
+                        'masterquartertype'
                     ],
-                    'link' => 'quartertypemaster.index',
+                    'link' => 'masterquartertype.index',
+                ],
+                'Area' => [
+                    'title' => 'menus.Area',
+                    'icon' => 'nav-icon fas fa-area-chart ',
+                    'permission_route' => 'masterarea*',
+                    'route' => [
+                        'masterarea'
+                    ],
+                    'link' => 'masterarea.index',
                 ],
 
 

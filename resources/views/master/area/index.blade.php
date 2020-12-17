@@ -5,12 +5,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Quarter Type List</h1>
+            <h1>{{  __('area.area_list') }}</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Quarter Type List</li>
+              <li class="breadcrumb-item active">{{  __('area.area_list') }}</li>
             </ol>
           </div>
         </div>
@@ -26,27 +26,17 @@
               </div>--->
               <!-- /.card-header -->
               <div class="card-body">
-                <table class="table table-bordered" id="userlist">
+                <table class="table table-bordered" id="arealist">
                 <thead>
                 <tr>
-                    <th rowspan="2">Quarter Type</th>
-                    
-                    <th colspan="2" >Basic Pay</th>
-                    <th colspan="4" >Rent</th>
-                    
-                    <th  colspan="2" ></th>
-                </tr>
-                <tr>
-                    <th>From</th>
-                    <th>To</th>
-                    <th>Normal</th>
-                    <th>Standard</th>
-                    <th>Economical</th>
-                    <th>Market</th>
-                    <th ></th>
+                    <th>{{  __('area.area_name') }}</th>
+                    <th>{{  __('area.address') }}</th>
+                    <th>{{  __('area.address_gujatati') }}</th>
+                    <th></th>
+                  
                     
                 </tr>
-               </thead>
+                </thead>
                   <tbody>
                     
                   </tbody>
@@ -75,38 +65,25 @@ console.log('page is ready');
 
     function load_table() {
 
-        oTable = $('#userlist').dataTable({
+        oTable = $('#arealist').dataTable({
             processing: true,
             serverSide: true,
             columns: [
-                {data: 'quartertype', name: 'quartertype'},
-                {data: 'bpay_from', name: 'bpay_from'},
-                {data: 'bpay_to', name: 'bpay_to'},
-                {data: 'rent_normal', name: 'rent_normal'},
-                {data: 'rent_standard', name: 'rent_standard'},
-                {data: 'rent_economical', name: 'rent_economical'},
-                {data: 'rent_market', name: 'rent_market'},
+                {data: 'areaname', name: 'areaname'},
+                {data: 'address', name: 'address'},
+                {data: 'address_g', name: 'address_g'},
+               
                 
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ],
             ajax: {
-      url: "{{ URL::action('QuarterTypeController@getList') }}",
+      url: "{{ URL::action('AreaController@getList') }}",
       'type': 'POST',
   },
        
             fnDrawCallback: function (oSettings) { console.log(oSettings);
-                $('#userlist a[destroy-id]').click({
-                  
-                  url: "{{ URL::action('QuarterTypeController@destroy') , 1}}", 
-                    'title': "Confirm",
-                    'message': '{{trans("categories.Are you sure to delete Category?")}}',
-                    'success': function (data, me) {
-                        var row = $(me).closest('tr');
-                        var nRow = row[0];
-                        oTable.fnDeleteRow(nRow);
-                    }
-                });
-                $('#userlist tbody tr td').click(function () {
+          
+                $('#arealist tbody tr td').click(function () {
                     var par = $(this).parent('tr');
                    // var len = oTable.columns().header().length;
                     var len = oTable.fnSettings().aoColumns.length;
