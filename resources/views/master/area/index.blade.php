@@ -81,8 +81,8 @@ console.log('page is ready');
       'type': 'POST',
   },
        
-            fnDrawCallback: function (oSettings) { console.log(oSettings);
-          
+            fnDrawCallback: function (oSettings) { //console.log(oSettings);
+            
                 $('#arealist tbody tr td').click(function () {
                     var par = $(this).parent('tr');
                    // var len = oTable.columns().header().length;
@@ -97,6 +97,23 @@ console.log('page is ready');
             }
         });
     }
-
+    $('body').on('click', '.delete', function () {
+     
+     var id = $(this).attr("destroy-id");
+     alert(id);
+     confirm("Are You sure want to delete !");
+   
+     $.ajax({
+         type: "DELETE",
+         url: "{{ route('masterarea.store') }}"+'/'+1,
+         data:{id:id},
+         success: function (data) {
+             table.draw();
+         },
+         error: function (data) {
+             console.log('Error:', data);
+         }
+     });
+ });
 </script>
 @endpush

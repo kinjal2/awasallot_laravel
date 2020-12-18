@@ -880,29 +880,32 @@ $requestdate ="";
     }
     public function getNormalquarterList(request $request)
     {
-        $first = Tquarterrequesta::select(['request_date',DB::raw("'a' as type"),DB::raw("'New' as requesttype"),'requestid','quartertype','inward_no','inward_date','u.name','u.designation','office','rivision_id','remarks','contact_no',
-        'address','gpfnumber','is_accepted','is_allotted','is_varified','email'])
-        ->join('userschema.users as u', 'u.id', '=', 'master.t_quarter_request_a.uid')
-        ;
-        $second = Tquarterrequestc::select(['request_date',DB::raw("'c' as type"),DB::raw("'Change' as requesttype"),'requestid','quartertype','inward_no','inward_date','u.name','u.designation','office','rivision_id','remarks','contact_no',
-        'address','gpfnumber','is_accepted','is_allotted','is_varified','email'])
+       $first = Tquarterrequesta::select(['request_date',DB::raw("'a'::text as type"),DB::raw("'New'::text as requesttype"),'requestid','quartertype','inward_no','inward_date','u.name','u.designation','office','rivision_id','remarks','contact_no',
+        'address','gpfnumber','is_accepted','is_allotted','is_varified','email','is_priority'])
+        ->join('userschema.users as u', 'u.id', '=', 'master.t_quarter_request_a.uid');
+      
+      $second = Tquarterrequestc::select(['request_date',DB::raw("'c' as type"),DB::raw("'Change' as requesttype"),'requestid','quartertype','inward_no','inward_date','u.name','u.designation','office','rivision_id','remarks','contact_no',
+        'address','gpfnumber','is_accepted','is_allotted','is_varified','email','is_priority'])
         ->join('userschema.users as u', 'u.id', '=', 'master.t_quarter_request_c.uid')
         ;
-      $union =Tquarterrequestb::select(['request_date',DB::raw("'b' as type"),DB::raw("'Higher Category' as requesttype"),'requestid','quartertype','inward_no','inward_date','u.name','u.designation','office','rivision_id','remarks','contact_no',
-        'address','gpfnumber','is_accepted','is_allotted','is_varified','email']) 
+      $union =Tquarterrequestb::select(['request_date',DB::raw("'b'::text as type"),DB::raw("'Higher Category'::text  as requesttype"),'requestid','quartertype','inward_no','inward_date','u.name','u.designation','office','rivision_id','remarks','contact_no',
+        'address','gpfnumber','is_accepted','is_allotted','is_varified','email','is_priority']) 
         ->join('userschema.users as u', 'u.id', '=', 'master.t_quarter_request_b.uid')
         ->union($first)
         ->union($second);
 
     $query = DB::table(DB::raw("({$union->toSql()}) as x"))
         ->select(['type','requesttype','requestid','quartertype','inward_no','inward_date','name','designation','office','rivision_id','remarks','contact_no',
-        'address','gpfnumber','is_accepted','is_allotted','is_varified','email','request_date'])
+        'address','gpfnumber','is_accepted','is_allotted','is_varified','email','request_date','is_priority'])
         ->where(function ($query) {
             $query->where('is_accepted', '=', 1)
             ->WhereNull('remarks')
             ->Where('is_varified', '=', 0)
+            ->Where('is_priority', '=', 'N')
             ->orderBy('wno'); 
         });
+       
+        
         
     return Datatables::of($query)
     ->addColumn('inward_date', function ($date) {
@@ -917,9 +920,9 @@ $requestdate ="";
     })
    
     ->addColumn('action', function($row){
-        $btn1 =   "edit";                  
+      //  $btn1 =   "edit";                  
         
-      //  $btn1 = '<a href="'.\route('editquarter', $row->requestid).'" class="btn btn-success "><i class="fas fa-edit"></i></a> ';
+        $btn1 = '<a href="'.\route('editquarter', $row->requestid).'" class="btn btn-success "><i class="fas fa-edit"></i></a> ';
          return $btn1;
      })
      ->addColumn('delete', function($row){
@@ -936,7 +939,29 @@ $requestdate ="";
 
     }
     public function editquarter(request $request){
-   // echo $url_segment = \Request::segment(2);
+  $url_segment = \Request::segment(2);
+  DB::enableQueryLog();
+  $subQuery = File_list::selectRaw('file_name, rev_id, document_id,request_id');
+
+  //->groupBy(\DB::raw('uid'));
+  
+  $q = \DB::table(\DB::raw('('.$subQuery->toSql().') as o1'))
+    ->selectRaw('o2.request_date,requestid,file_name,rev_id,document_id')
+    ->join('master.t_quarter_request_a as o2', 'o1.request_id', '=', 'o2.requestid')
+ //   ->groupBy('o1.request_id')
+    ->where('requestid','=',$url_segment)
+    ->mergeBindings($subQuery->getQuery())
+    ->get();
+    $query = DB::getQueryLog();
+    dd($query);
+  $first = Tquarterrequesta::select(['request_date',DB::raw("'a' as type"),DB::raw("'New' as requesttype"),'requestid','quartertype','inward_no','inward_date','u.name','u.designation','office','rivision_id','remarks','contact_no',
+        'address','gpfnumber','is_accepted','is_allotted','is_varified','email'])
+        ->join('userschema.users as u', 'u.id', '=', 'master.t_quarter_request_a.uid')
+        ->where('requestid','=',$url_segment)
+        ->get();
+        dd($first );
+        
+
    $this->_viewContent['page_title'] = "Quarter Edit Details";
    return view('request/updateQuarterRequest',$this->_viewContent);
 

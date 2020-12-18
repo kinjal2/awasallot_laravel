@@ -19,11 +19,18 @@ class AreaController extends Controller
         return Datatables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function($row){
-                $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm" destroy-id="' . $row->areaid . '">Delete</a>';
+                $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm delete" destroy-id="' . $row->areaid . '">Delete</a>';
                 return $actionBtn;
             })
             ->rawColumns(['action'])
             ->make(true);
 
     }
+    public function destroy(Request $request, $id)
+    {
+        $check = Area::where('areaid', $id)->delete();
+ 
+        return Response::json($check);
+    }
+
 }
