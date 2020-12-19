@@ -939,29 +939,24 @@ $requestdate ="";
 
     }
     public function editquarter(request $request){
-  $url_segment = \Request::segment(2);
-  DB::enableQueryLog();
-  $subQuery = File_list::selectRaw('file_name, rev_id, document_id,request_id');
+     $url_segment = \Request::segment(2);
 
-  //->groupBy(\DB::raw('uid'));
-  
-  $q = \DB::table(\DB::raw('('.$subQuery->toSql().') as o1'))
-    ->selectRaw('o2.request_date,requestid,file_name,rev_id,document_id')
-    ->join('master.t_quarter_request_a as o2', 'o1.request_id', '=', 'o2.requestid')
- //   ->groupBy('o1.request_id')
-    ->where('requestid','=',$url_segment)
-    ->mergeBindings($subQuery->getQuery())
-    ->get();
-    $query = DB::getQueryLog();
-    dd($query);
-  $first = Tquarterrequesta::select(['request_date',DB::raw("'a' as type"),DB::raw("'New' as requesttype"),'requestid','quartertype','inward_no','inward_date','u.name','u.designation','office','rivision_id','remarks','contact_no',
-        'address','gpfnumber','is_accepted','is_allotted','is_varified','email'])
+     $quarterrequest = Tquarterrequesta::select(['request_date',DB::raw("'a' as type"),DB::raw("'New' as requesttype"),'requestid','quartertype','inward_no','inward_date','u.name','u.designation','office','rivision_id','remarks','contact_no',
+        'address','gpfnumber','is_accepted','is_allotted','is_varified','email',
+        'is_dept_head','office','old_designation','date_of_retirement','appointment_date','salary_slab','actual_salary','basic_pay','personal_salary','special_salary','gpfnumber',
+        'deputation_date','maratial_status','deputation_allowance','prv_area_name',
+        'prv_building_no','prv_quarter_type','prv_rent','prv_handover','have_old_quarter','old_quarter_details','is_scst','is_relative','relative_details','is_relative_householder',
+        'relative_house_details','nearby_house_details','have_house_nearby','downgrade_allotment'])
         ->join('userschema.users as u', 'u.id', '=', 'master.t_quarter_request_a.uid')
         ->where('requestid','=',$url_segment)
+        ->get(); 
+        $this->_viewContent['file'] = File_list::select(['document_id','rev_id','doc_id'])
+        ->join('master.m_document_type as  d', 'd.document_type', '=', 'master.file_list.document_id')
+        ->where('request_id','=',$url_segment)
+        ->where('rivision_id','=',1)
         ->get();
-        dd($first );
-        
-
+     
+ $this->_viewContent['quarterrequest']=$quarterrequest[0];
    $this->_viewContent['page_title'] = "Quarter Edit Details";
    return view('request/updateQuarterRequest',$this->_viewContent);
 

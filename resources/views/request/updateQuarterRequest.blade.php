@@ -48,55 +48,55 @@
                 <th></th>
                 <th>ક્વાર્ટર કેટેગરી </th>
                 <td colspan="4">
-                   
+                   {{  $quarterrequest->requesttype }}
                 </td>
             </tr>
             <tr>
                 <th>1</th>
                 <th>નામ(પુરેપુરૂ)</th>
-                <td colspan="4"></td>
+                <td colspan="4">  {{  $quarterrequest->name }} </td>
             </tr>
             <tr>
                 <th></th>
                 <th>( અ ) હોદ્દો</th>
-                <td colspan="4"></td>
+                <td colspan="4">{{ $quarterrequest->designation}}</td>
             </tr>
             <tr>
                 <th></th>
                 <th>(બ ) પોતે કચેરી/વિભાગ ના વડા છે કે કેમ?</th>
                 <td colspan="4">
-
+                {{ $quarterrequest->is_dept_head}}
                 </td>
             </tr>
             <tr>
                 <th>2</th>
                 <th>( અ ) જે વિભાગ/કચેરીમાં કામ કરતા હોય તેનુ નામ</th>
-                <td colspan="4"></td>
+                <td colspan="4">{{  $quarterrequest->Office}}</td>
             </tr>
             <tr>
                 <th></th>
                 <th>( બ ) જ્યાંથી બદલી થઈ ને આવ્યા હોય /પ્રતિનિયુક્તિ ઉપર આવ્યા હોય ત્યાંનો હોદ્દો અને કચેરી નું નામ</th>
                 <td><strong>હોદ્દો</strong></td>
-                <td></td>
+                <td>{{  $quarterrequest->old_designation}} </td>
                 <td><strong>કચેરી નું નામ</strong></td>
-                <td></td>
+                <td>{{  $quarterrequest->old_office}}</td>
             </tr>
             <tr>
                 <th></th>
                 <th>( ક ) જો નવી નિમણૂંક હોય તો કઇ તારીખ થી</th>
-                <td colspan="4"></td>
+                <td colspan="4">{{  $quarterrequest->deputation_date}}</td>
             </tr>
             <tr>
                 <th></th>
                 <th>( ડ ) વતન નું સરનામું</th>
-                <td colspan="4">
+                <td colspan="4">{{  $quarterrequest->address}}
                     
                 </td>
             </tr>
             <tr>
                 <th></th>
                 <th>( ઈ ) નિવ્રૂત્તિ ની તારીખ</th>
-                <td colspan="4">
+                <td colspan="4">{{  $quarterrequest->date_of_retirement }}
                    
                 </td>
             </tr>
@@ -104,33 +104,33 @@
                 <th></th>
                 <th>( ફ ) જી.પી.એફ. ખાતા નંબર</th>
                 <td colspan="4">
-                    
+                {{  $quarterrequest->gpfnumber }}
                 </td>
             </tr>
             <tr>
                 <th>3</th>
                 <th>સરકારી નોકરીમાં મૂળ નિમણુંક તારીખ્ </th>
-                <td colspan="4">
-                   
+                <td colspan="4"> {{  $quarterrequest->appointment_date }}
+                
                 </td>
             </tr>
     
             <tr>
                 <th>4</th>
                 <th>( અ ) પગાર નો સ્કેલ (વિગતવાર આપવો)  </th>
-                <td colspan="4"></td>
+                <td colspan="4">{{  $quarterrequest->salary_slab }} </td>
             </tr>
             <tr>
                 <th></th>
                 <th>( બ ) ખરેખર મળતો પગાર</th>
-                <td colspan="4">
-                   
+                <td colspan="4"> {{  $quarterrequest->actual_salary }}
+                
                 </td>
             </tr>
             <tr>
                 <th></th>
                 <th>( ૧ ) મૂળ પગાર</th>
-                <td colspan="4">
+                <td colspan="4">{{  $quarterrequest->basic_pay }}
                     
                 </td>
             </tr>
@@ -138,34 +138,34 @@
                 <th></th>
                 <th>( ૨ ) પર્સનલ પગાર</th>
                 <td colspan="4">
-                   
+                {{  $quarterrequest->personal_salary }}
                 </td>
             </tr>
             <tr>
                 <th></th>
                 <th>( ૩ ) સ્પેશ્યલ પગાર</th>
                 <td colspan="4">
-                  
+                {{  $quarterrequest->special_salary }}
                 </td>
             </tr>
             <tr>
                 <th></th>
                 <th>( ૪ ) પ્રતિનિયુક્તિ ભથ્થું</th>
-                <td colspan="4">
-                   
+                <td colspan="4"> {{  $quarterrequest->deputation_allowance }}
+                
                 </td>
             </tr>
             <tr>
                 <th></th>
                 <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; કુલ પગાર રૂ.</th>
-                <td colspan="4">
+                <td colspan="4"> 
                     
                 </td>
             </tr>
             <tr>
                 <th>5</th>
                 <th>( અ ) પરણિત/અપરણિત  </th>
-                <td colspan="4"></td>
+                <td colspan="4">{{  $quarterrequest->maratial_status }}  </td>
             </tr>
             
             <tr>
@@ -177,40 +177,41 @@
                 <th></th>
                 <th></th>
                 <td><strong>( અ ) કોલોની નું નામ/રીક્વીઝીશન કરેલ મકાન ની વિગત</strong></td>
-                <td></td>
+                <td> {{  $quarterrequest->prv_area_name }}
+                </td>
                 <td><strong>( બ ) વસવાટ નો ક્વાર્ટર નંબર</strong></td>
-                <td></td>
+                <td>{{  $quarterrequest->prv_building_no }}  </td>
             </tr>
             <tr>
                 <th></th>
                 <th></th>
                 <td><strong>( ક-૧ )વસવાટ ની કેટેગરી</strong></td>
-                <td>
-                    
+                <td> {{  $quarterrequest->prv_quarter_type }} 
+                   
                 </td>
                 <td><strong>(ક-૨) માસીક ભાડું</strong></td>
-                <td>
-                  
+                <td> {{  $quarterrequest->prv_rent }} 
+                
                 </td>
             </tr>
             <tr>
                 <th></th>
                 <th></th>
                 <td><strong>( ડ ) મકાન મળતાં ઉપર દર્શાવેલ મકાન સરકારને તુરત પાછું આપવામાં આવશે કે કેમ્?</strong></td>
-                <td colspan="3">
-                    
+                <td colspan="3">{{  $quarterrequest->prv_handover }} 
+                
                 </td>
             </tr>
             <Tr>
                 <th>7</th>
                 <th>અગાઉ ગાંધીનગર માં મકાન મેળવવા અરજી કરવા માં આવી છે અથવા મકાન ફાળવેલ છે?</th>
-                <td>
-                    
+                <td> {{  $quarterrequest->have_old_quarter }} 
+                
                     
                 </td>
                 <td><strong>તારીખ, નંબર, બ્લોક વિગેરે વિગત </strong></td>
-                <td colspan="2">
-                    
+                <td colspan="2"> {{  $quarterrequest->old_quarter_details }} 
+                
                 </td>
             </Tr>
             <Tr>
@@ -222,43 +223,43 @@
                 </td>
                 <td><strong>વિગત </strong></td>
                 <td colspan="2">
-                    
+                 {{  $quarterrequest->is_scst }} 
                 </td>
             </Tr>
             <Tr>
                 <th>9</th>
                 <th>ગાંધીનગર ખાતે જો રહેતા હોય તો કોની સાથે, તેમની સાથે નો સંબંધ અને મકાન ની વિગત</th>
                 <td>
-                    
+                 {{  $quarterrequest->is_relative }} 
                    
                 </td>
                 <td><strong>વિગત </strong></td>
                 <td colspan="2">
-                   
+                 {{  $quarterrequest->relative_details }} 
                 </td>
             </Tr>
             <Tr>
                 <th>10</th>
                 <th>ગાંધીનગર ખાતે માતા/પિતા. પતિ/પત્ની વિગેરે લોહી ની સગાઈ જેવા સંબંધીને મકાન ફાળવેલ છે?</th>
-                <td>
+                <td> {{  $quarterrequest->is_relative_householder }} 
                     
-                  
+                
                 </td>
                 <td><strong>વિગત </strong></td>
-                <td colspan="2">
-                   
+                <td colspan="2"> {{  $quarterrequest->relative_house_details }} 
+                
                 </td>
             </Tr>
             
             <Tr >
                 <th>11</th>
                 <th>ગાંધીનગર શહેર ની હદ માં અથવા સચિવાલય થી ૧૦ કિલોમીટર ની હદ માં અથવા ગાંધીનગર ની હદ માં આવતા ગમડાં માં તેમના પિતા/પતિ/પત્ની કે કુટુંબ ના કોઈપણ સભ્યને નામે રહેણાંકનું મકાન છે?</th>
-                <td>
-                   
+                <td> {{  $quarterrequest->have_house_nearby }} 
+                
                 </td>
                 <td><strong>વિગત </strong></td>
-                <td colspan="2">
-                   
+                <td colspan="2"> {{  $quarterrequest->nearby_house_details }} 
+                
                 </td>
             </Tr>
             
@@ -266,8 +267,8 @@
                 <th>12</th>
                 <th colspan="3">જો બદલી થઈ ને ગાંધીનગર આવેલ હોય તો પોતે જે કક્ષા નું વસવાટ મેળવવાને પાત્ર હોય તે મળે ત્યાં સુધી તરત નીચી કક્ષાનું વસવાટ ફાળવી આપવા વિનંતી છે?</th>
                 <td colspan="2">
-                   
-                   
+                {{  $quarterrequest->downgrade_allotment }} 
+                
                 </td>
                 
             </Tr>
