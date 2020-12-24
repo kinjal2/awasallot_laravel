@@ -20,6 +20,11 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
     <div class="col-md-12">
             <!-- general form elements -->
             <div class="card ">

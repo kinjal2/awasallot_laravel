@@ -45,7 +45,7 @@ Route::get('quartershigher', [ 'as' => 'user.Quarter.higher', 'uses' => 'Quarter
 Route::post('saveHigherCategoryReq', ['uses' => 'QuartersController@saveHigherCategoryReq']);
 
 Route::get('quartershistory', [ 'as' => 'user.Quarter.history', 'uses' => 'QuartersController@index']);
-Route::get('request-history', ['uses' => 'QuartersController@requestHistory']);
+Route::post('request-history', ['uses' => 'QuartersController@requestHistory']);
 
 Route::get('generate-pdf/{requestid}/revision_id', [ 'as' => 'generate.pdf', 'uses' => 'QuartersController@generate_pdf']);
 Route::get('uploaddocument/:any', ['uses' => 'QuartersController@uploaddocument']);
@@ -61,8 +61,15 @@ Route::get('download/:any', [ 'as' => 'download.pdf', 'uses' => 'ReportsControll
 
 Route::get('quarters', [ 'as' => 'quarters', 'uses' => 'QuartersController@index']);
 Route::get('quarterlistnormal', [ 'as' => 'quarter.list.normal', 'uses' => 'QuartersController@quarterlistnormal']);
-Route::get('quarterlistpriority', [ 'as' => 'quarter.list.priority', 'uses' => 'QuartersController@quarterlistnormal']);
 Route::get('quarterlistnew', [ 'as' => 'quarter.list.new', 'uses' => 'QuartersController@quarterNewRequest']);
+Route::post('saveapplication', [ 'as' => 'quarter.list.saveapplication', 'uses' => 'QuartersController@saveapplication']);
+Route::post('saveremarks', [ 'as' => 'quarter.list.saveremarks', 'uses' => 'QuartersController@saveremarks']);
+
+
+
+
+
+
 Route::get('waitinglist', [ 'as' => 'waiting.list', 'uses' => 'ReportsController@waitinglist']);
 Route::get('allotmentlist', [ 'as' => 'allotment.list', 'uses' => 'ReportsController@allotmentlist']);
 Route::get('vacantlist', [ 'as' => 'vacant.list', 'uses' => 'ReportsController@vacantlist']);
@@ -82,7 +89,7 @@ Route::get('quarter-occupancy', ['as' => 'quarter.occupancy', 'uses' => 'Reports
 Route::post('quarteroccupancylist', ['as' => 'quarter.occupancy.list', 'uses' => 'ReportsController@getquarteroccupancy']);
 
 Route::get('editquarter/{id}', ['as' => 'editquarter', 'uses' => 'QuartersController@editquarter']);
-
+Route::get('download/{id}', ['as' => 'download', 'uses' => 'QuartersController@downloaddocument']);
 
 Route::get('reports', [ 'as' => 'reports', 'uses' => 'ReportsController@index']);
 Route::get('user', [ 'as' => 'user', 'uses' => 'UserController@index']);
@@ -98,6 +105,13 @@ Route::resource('masterquartertype', 'QuarterTypeController');
 Route::get('masterarea', ['uses' => 'AreaController@index', 'as' => 'masterarea.index']); 
 Route::post('getList','AreaController@getList');
 Route::resource('masterarea', 'AreaController');
+
+
+Route::get('quarterlistpriority',['QuartersPriorityController@index','as'=>'quarterlistpriority.index']);
+Route::post('getList2','QuartersPriorityController@getList');
+Route::resource('quarterlistpriority', 'QuartersPriorityController');
+
+
 
 
 Route::get('grasapi', [ 'as' => 'grasapi', 'uses' => 'Auth\LoginController@apiLogin']);

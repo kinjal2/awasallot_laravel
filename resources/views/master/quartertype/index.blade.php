@@ -71,8 +71,9 @@ console.log('page is ready');
 <script type="text/javascript">
   $(document).ready(function () {
         load_table();
+        $('#userlist').dataTable().fnDestroy();
     });
-
+    oTable='';
     function load_table() {
 
         oTable = $('#userlist').dataTable({
@@ -95,17 +96,7 @@ console.log('page is ready');
   },
        
             fnDrawCallback: function (oSettings) { console.log(oSettings);
-                $('#userlist a[destroy-id]').click({
-                  
-                  url: "{{ URL::action('QuarterTypeController@destroy') , 1}}", 
-                    'title': "Confirm",
-                    'message': '{{trans("categories.Are you sure to delete Category?")}}',
-                    'success': function (data, me) {
-                        var row = $(me).closest('tr');
-                        var nRow = row[0];
-                        oTable.fnDeleteRow(nRow);
-                    }
-                });
+             
                 $('#userlist tbody tr td').click(function () {
                     var par = $(this).parent('tr');
                    // var len = oTable.columns().header().length;
@@ -120,6 +111,22 @@ console.log('page is ready');
             }
         });
     }
-
+    $('body').on('click', '.delete', function () { 
+        var id = $(this).attr("destroy-id");
+        alert(id);
+        confirm("Are You sure want to delete !");
+        $.ajax({
+          type: "DELETE",
+          url: "{{ route('masterquartertype.destroy',"+ id +") }}",
+        
+          success: function (data) {
+            load_table();
+          },
+          error: function (data) {
+              console.log('Error:', data);
+          }
+        });
+    });                
+                  
 </script>
 @endpush

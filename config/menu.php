@@ -35,11 +35,11 @@ return [
 					'Request List (Priority)' => [
                     'title' => 'menus.Request List (Priority)',
                     'icon' => 'fa fa-list',
-                    'permission_route' => 'quarter.list.priority',
+                    'permission_route' => 'quarterlistpriority*',
                     'route' => [
                         'quarterlistpriority'
                     ],
-                    'link' => 'quarter.list.priority',
+                    'link' => 'quarterlistpriority.index',
                 ],
 				/*	'New Request' => [
                     'title' => 'menus.New Request',

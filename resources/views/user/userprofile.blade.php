@@ -81,7 +81,7 @@
 			</div>
 			<div class="col-4">
 				<div class="form-group">
-        <img src="<?php echo asset("public/uploads/$users->image")?>"></img>
+           <img src="{{ asset('/uploads/'.$users->image) }} " width="100" height="100"></img>
 				</div>
 			</div>
 			</div>

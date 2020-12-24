@@ -71,10 +71,11 @@
  var table = $('#request_history').DataTable({
         processing: true,
         serverSide: true,
-      
-        ajax: "{{ url('request-history') }}",
-       
-        columns: [
+        ajax: {
+      url: "{{ url('request-history') }}",
+      'type': 'POST',
+  },
+       columns: [
             
             {data: 'requesttype', name: 'requesttype'},
             {data: 'quartertype', name: 'quartertype'},

@@ -8,5 +8,7 @@ class Tquarterrequesta extends Model
 {
     //
     protected $table ='master.t_quarter_request_a';
-    protected $primaryKey='requestid';
+  
+    protected $primaryKey = ['quartertype', 'requestid','uid','rivision_id'];
+    public $incrementing = false;
 }

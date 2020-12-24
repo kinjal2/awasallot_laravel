@@ -20,7 +20,7 @@ class QuarterTypeController extends Controller
         return Datatables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function($row){
-                $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm" destroy-id="' . $row->priority . '">Delete</a>';
+                $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm"><i class="fas fa-edit"></i></a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm delete" destroy-id="' . $row->priority . '"><i class="fas fa-trash"></i></a>';
                 return $actionBtn;
             })
             ->rawColumns(['action'])

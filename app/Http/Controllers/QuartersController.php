@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 use Validator,Redirect,Response;
-use  Request;
+
+use Illuminate\Http\Request;
 use App\Tquarterrequestb;
 use App\Tquarterrequesta;
 use App\Tquarterrequestc;
 use App\Document_type;
 use App\File_list;
 use App\Quarter;
+use App\Remarks;
 use Carbon\Carbon;
 use Session;
 use Yajra\Datatables\Datatables;
@@ -165,7 +167,7 @@ class QuartersController extends Controller
                 $Tquarterrequesta->prv_quarter_type = empty($request->get('prv_quarter_type')) ? NULL : $request->get('prv_quarter_type');
                 $Tquarterrequesta->prv_rent = empty($request->get('prv_rent')) ? NULL : $request->get('prv_rent');
                 $Tquarterrequesta->prv_handover = empty($request->get('prv_handover')) ? NULL : $request->get('prv_handover');
-                $Tquarterrequesta->have_old_quarter = empty($request->get('old_quarter_details')) ? NULL : $request->get('old_quarter_details');
+                $Tquarterrequesta->have_old_quarter = empty($request->get('have_old_quarter_yn')) ? NULL : $request->get('have_old_quarter_yn');
                 $Tquarterrequesta->is_scst = empty($request->get('is_scst')) ? NULL : $request->get('is_scst');
                 $Tquarterrequesta->scst_info = empty($request->get('scst_details')) ? NULL : $request->get('scst_details');
                 $Tquarterrequesta->is_relative = empty($request->get('is_relative')) ? NULL : $request->get('is_relative');
@@ -191,10 +193,10 @@ class QuartersController extends Controller
     public function requestHistory(request $request)
     { 
         $uid=Session::get('uid');
-        if ($request->ajax()) {
+       
                 $basic_pay=Session::get('basic_pay');
                 $quarterselect= Quarter::where('bpay_from', '<=',$basic_pay)->where('bpay_to', '>=',$basic_pay)->get();
-               // DB::enableQueryLog();
+               DB::enableQueryLog();
                 $quarterlist = Tquarterrequestc::select([DB::raw("'c' as type"),DB::raw("'change' as requesttype"),'quartertype','request_date','is_accepted','inward_date',DB::raw("wno::integer"),'remarks',
                 DB::raw("(CASE 
                 WHEN is_allotted='0' THEN 'NO' 
@@ -227,8 +229,8 @@ class QuartersController extends Controller
                 ->union($quarterlist) 
                 ->union($quarterlist2) 
                 ->get();
-             //  $query = DB::getQueryLog();
-              //dd( $query);
+               $query = DB::getQueryLog();
+              dd( $query);
             
             return Datatables::of($quarterlist3)
                         ->addIndexColumn()
@@ -256,7 +258,7 @@ class QuartersController extends Controller
                         ->rawColumns(['action'])
                         
                         ->make(true);
-            }
+            
 
     }
     public function generate_pdf(){
@@ -942,23 +944,103 @@ $requestdate ="";
      $url_segment = \Request::segment(2);
 
      $quarterrequest = Tquarterrequesta::select(['request_date',DB::raw("'a' as type"),DB::raw("'New' as requesttype"),'requestid','quartertype','inward_no','inward_date','u.name','u.designation','office','rivision_id','remarks','contact_no',
-        'address','gpfnumber','is_accepted','is_allotted','is_varified','email',
+        'address','gpfnumber','is_accepted','is_allotted','is_varified','email','rivision_id',
         'is_dept_head','office','old_designation','date_of_retirement','appointment_date','salary_slab','actual_salary','basic_pay','personal_salary','special_salary','gpfnumber',
         'deputation_date','maratial_status','deputation_allowance','prv_area_name',
         'prv_building_no','prv_quarter_type','prv_rent','prv_handover','have_old_quarter','old_quarter_details','is_scst','is_relative','relative_details','is_relative_householder',
-        'relative_house_details','nearby_house_details','have_house_nearby','downgrade_allotment'])
+        'relative_house_details','nearby_house_details','have_house_nearby','downgrade_allotment','uid'])
         ->join('userschema.users as u', 'u.id', '=', 'master.t_quarter_request_a.uid')
         ->where('requestid','=',$url_segment)
-        ->get(); 
-        $this->_viewContent['file'] = File_list::select(['document_id','rev_id','doc_id'])
+       // ->where('rivision_id','=',1)
+        ->first(); 
+      //  dd($quarterrequest );
+         $this->_viewContent['file_uploaded'] = File_list::select(['document_id','rev_id','doc_id','document_name'])
         ->join('master.m_document_type as  d', 'd.document_type', '=', 'master.file_list.document_id')
         ->where('request_id','=',$url_segment)
-        ->where('rivision_id','=',1)
+     //   ->where('rivision_id','=',1)
+        ->get();
+        
+        $this->_viewContent['quarterrequest1'] = Tquarterrequesta::select(['request_date','requestid','quartertype','inward_no','inward_date','rivision_id','remarks',
+        'is_accepted','is_allotted','is_varified'])
+        ->where('requestid','=',$url_segment)
+        ->where('uid','=',$quarterrequest->uid)
         ->get();
      
- $this->_viewContent['quarterrequest']=$quarterrequest[0];
-   $this->_viewContent['page_title'] = "Quarter Edit Details";
-   return view('request/updateQuarterRequest',$this->_viewContent);
+    $this->_viewContent['quarterrequest']=(isset($quarterrequest) && isset($quarterrequest))?$quarterrequest:'';
+    $this->_viewContent['page_title'] = "Quarter Edit Details";
+    return view('request/updateQuarterRequest',$this->_viewContent);
 
+    }
+   public function downloaddocument(request $request)
+   {
+    $url_segment = \Request::segment(2);
+     $client = new CouchClient('http://admin:admin@localhost:5984','awas_document');
+    //   $client->InitConnection();
+    //   $client->isRunning();
+       $downloaf = htmlentities(strip_tags($url_segment),ENT_QUOTES);
+       $response = $client->getDoc($downloaf);
+        $result = json_encode($response, true);
+        $result1 = json_decode($result, true);
+        $data=$result1['_attachments'];
+        foreach($data as $key => $value)
+       {      
+            $cont  = file_get_contents("http://admin:admin@localhost:5984/awas_document/".$downloaf."/".$key."");
+            header('Content-Disposition: attachment; filename="'.$key.'"');
+            header("Content-Type: ".$value['content_type']."");
+            echo $cont;
+            exit;
+
+       }
+       exit;
+
+   }
+   public function saveapplication(request $request)
+   {
+      $result1 = json_encode($request::all(), true);
+      $result1 = json_decode($result1, true);
+      $status=$result1['status'];
+      $requestid=$result1['requestid'];
+      $rv= $result1['rv'];
+        if($status != 0)
+        { 
+            
+        }
+        else
+        {
+            $result=Tquarterrequesta::where('requestid',$requestid)->where('rivision_id',$rv)
+            ->update(['is_varified' => $status,'is_accepted'=>1,'updatedby'=>session::get('uid')]);
+            if($result){
+                $this->_viewContent['requestid']= $requestid;
+                $this->_viewContent['rv']= $rv;
+                $this->_viewContent['type']= 'a';
+                $remarks = Remarks::get();
+              //  dd($remarks);
+                $this->_viewContent['remarks']=  $remarks;
+                $this->_viewContent['page_title'] = "Remarks";
+                return view('request/remarks',$this->_viewContent);
+            }else
+            {
+
+            }
+
+        }
+   }
+   public function saveremarks(request $request) 
+   {
+      //  dd($request::all());
+        $result1 = json_encode($request::all(), true);
+        $result1 = json_decode($result1, true);
+        $type= $result1['type'];
+        $requestid=$result1['r'];
+        $rv= $result1['rv'];
+        $remarks= $result1['remarks'];
+        if($type == 'a')
+        {   
+        
+            $result=Tquarterrequesta::where('requestid',$requestid)->where('rivision_id',$rv)
+            ->update(['remarks' => $remarks,'remarks_date'=>date('Y-m-d')]);
+            return redirect('/quarterlistnormal')->with('success', 'Quarter request processed successfully!');
+            
+        }
     }
 }

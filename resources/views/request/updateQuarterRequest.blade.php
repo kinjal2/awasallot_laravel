@@ -48,55 +48,55 @@
                 <th></th>
                 <th>ક્વાર્ટર કેટેગરી </th>
                 <td colspan="4">
-                   {{  $quarterrequest->requesttype }}
+                   {{  isset($quarterrequest->requesttype)?$quarterrequest->requesttype:'N/A' }}
                 </td>
             </tr>
             <tr>
                 <th>1</th>
                 <th>નામ(પુરેપુરૂ)</th>
-                <td colspan="4">  {{  $quarterrequest->name }} </td>
+                <td colspan="4">  {{  isset($quarterrequest->name)?$quarterrequest->name:'N/A' }} </td>
             </tr>
             <tr>
                 <th></th>
                 <th>( અ ) હોદ્દો</th>
-                <td colspan="4">{{ $quarterrequest->designation}}</td>
+                <td colspan="4">{{  isset($quarterrequest->designation)?$quarterrequest->designation:'N/A' }}</td>
             </tr>
             <tr>
                 <th></th>
                 <th>(બ ) પોતે કચેરી/વિભાગ ના વડા છે કે કેમ?</th>
                 <td colspan="4">
-                {{ $quarterrequest->is_dept_head}}
+                {{ isset($quarterrequest->is_dept_head)?$quarterrequest->is_dept_head:'N/A'}}
                 </td>
             </tr>
             <tr>
                 <th>2</th>
                 <th>( અ ) જે વિભાગ/કચેરીમાં કામ કરતા હોય તેનુ નામ</th>
-                <td colspan="4">{{  $quarterrequest->Office}}</td>
+                <td colspan="4">{{  isset($quarterrequest->Office)?$quarterrequest->Office:'N/A'}}</td>
             </tr>
             <tr>
                 <th></th>
                 <th>( બ ) જ્યાંથી બદલી થઈ ને આવ્યા હોય /પ્રતિનિયુક્તિ ઉપર આવ્યા હોય ત્યાંનો હોદ્દો અને કચેરી નું નામ</th>
                 <td><strong>હોદ્દો</strong></td>
-                <td>{{  $quarterrequest->old_designation}} </td>
+                <td>{{  isset($quarterrequest->old_designation)?$quarterrequest->old_designation:'N/A'}} </td>
                 <td><strong>કચેરી નું નામ</strong></td>
-                <td>{{  $quarterrequest->old_office}}</td>
+                <td>{{  isset($quarterrequest->old_office)?$quarterrequest->old_office:"N/A"}}</td>
             </tr>
             <tr>
                 <th></th>
                 <th>( ક ) જો નવી નિમણૂંક હોય તો કઇ તારીખ થી</th>
-                <td colspan="4">{{  $quarterrequest->deputation_date}}</td>
+                <td colspan="4">{{  isset($quarterrequest->deputation_date)?$quarterrequest->deputation_date:'N/A'}}</td>
             </tr>
             <tr>
                 <th></th>
                 <th>( ડ ) વતન નું સરનામું</th>
-                <td colspan="4">{{  $quarterrequest->address}}
+                <td colspan="4">{{  isset($quarterrequest->address)?$quarterrequest->address:'N/A'}}
                     
                 </td>
             </tr>
             <tr>
                 <th></th>
                 <th>( ઈ ) નિવ્રૂત્તિ ની તારીખ</th>
-                <td colspan="4">{{  $quarterrequest->date_of_retirement }}
+                <td colspan="4">{{  isset($quarterrequest->date_of_retirement)?$quarterrequest->date_of_retirement:'N/A' }}
                    
                 </td>
             </tr>
@@ -104,13 +104,13 @@
                 <th></th>
                 <th>( ફ ) જી.પી.એફ. ખાતા નંબર</th>
                 <td colspan="4">
-                {{  $quarterrequest->gpfnumber }}
+                {{  isset($quarterrequest->gpfnumber)?$quarterrequest->gpfnumber:'N/A' }}
                 </td>
             </tr>
             <tr>
                 <th>3</th>
                 <th>સરકારી નોકરીમાં મૂળ નિમણુંક તારીખ્ </th>
-                <td colspan="4"> {{  $quarterrequest->appointment_date }}
+                <td colspan="4"> {{  isset($quarterrequest->appointment_date)?$quarterrequest->appointment_date:'N/A' }}
                 
                 </td>
             </tr>
@@ -118,19 +118,19 @@
             <tr>
                 <th>4</th>
                 <th>( અ ) પગાર નો સ્કેલ (વિગતવાર આપવો)  </th>
-                <td colspan="4">{{  $quarterrequest->salary_slab }} </td>
+                <td colspan="4">{{  isset($quarterrequest->salary_slab)?$quarterrequest->salary_slab:"N/A" }} </td>
             </tr>
             <tr>
                 <th></th>
                 <th>( બ ) ખરેખર મળતો પગાર</th>
-                <td colspan="4"> {{  $quarterrequest->actual_salary }}
+                <td colspan="4"> {{  isset($quarterrequest->actual_salary)? $quarterrequest->actual_salary:'N/A' }}
                 
                 </td>
             </tr>
             <tr>
                 <th></th>
                 <th>( ૧ ) મૂળ પગાર</th>
-                <td colspan="4">{{  $quarterrequest->basic_pay }}
+                <td colspan="4">{{  isset($quarterrequest->basic_pay)? $quarterrequest->basic_pay:'N/A' }}
                     
                 </td>
             </tr>
@@ -138,20 +138,20 @@
                 <th></th>
                 <th>( ૨ ) પર્સનલ પગાર</th>
                 <td colspan="4">
-                {{  $quarterrequest->personal_salary }}
+                {{  isset($quarterrequest->personal_salary)?$quarterrequest->personal_salary:'N/A' }}
                 </td>
             </tr>
             <tr>
                 <th></th>
                 <th>( ૩ ) સ્પેશ્યલ પગાર</th>
                 <td colspan="4">
-                {{  $quarterrequest->special_salary }}
+                {{  isset($quarterrequest->special_salary)?$quarterrequest->special_salary:'N/A' }}
                 </td>
             </tr>
             <tr>
                 <th></th>
                 <th>( ૪ ) પ્રતિનિયુક્તિ ભથ્થું</th>
-                <td colspan="4"> {{  $quarterrequest->deputation_allowance }}
+                <td colspan="4"> {{  isset($quarterrequest->deputation_allowance)?$quarterrequest->deputation_allowance:'N/A' }}
                 
                 </td>
             </tr>
@@ -165,7 +165,7 @@
             <tr>
                 <th>5</th>
                 <th>( અ ) પરણિત/અપરણિત  </th>
-                <td colspan="4">{{  $quarterrequest->maratial_status }}  </td>
+                <td colspan="4">{{  isset($quarterrequest->maratial_status)?$quarterrequest->maratial_status:'N/A' }}  </td>
             </tr>
             
             <tr>
@@ -177,20 +177,20 @@
                 <th></th>
                 <th></th>
                 <td><strong>( અ ) કોલોની નું નામ/રીક્વીઝીશન કરેલ મકાન ની વિગત</strong></td>
-                <td> {{  $quarterrequest->prv_area_name }}
+                <td> {{  isset($quarterrequest->prv_area_name)? $quarterrequest->prv_area_name:"N/A" }}
                 </td>
                 <td><strong>( બ ) વસવાટ નો ક્વાર્ટર નંબર</strong></td>
-                <td>{{  $quarterrequest->prv_building_no }}  </td>
+                <td>{{  isset($quarterrequest->prv_building_no)?$quarterrequest->prv_building_no:'N/A' }}  </td>
             </tr>
             <tr>
                 <th></th>
                 <th></th>
                 <td><strong>( ક-૧ )વસવાટ ની કેટેગરી</strong></td>
-                <td> {{  $quarterrequest->prv_quarter_type }} 
+                <td> {{  isset($quarterrequest->prv_quarter_type)?$quarterrequest->prv_quarter_type:'N/A' }} 
                    
                 </td>
                 <td><strong>(ક-૨) માસીક ભાડું</strong></td>
-                <td> {{  $quarterrequest->prv_rent }} 
+                <td> {{  isset($quarterrequest->prv_rent)?$quarterrequest->prv_rent:'N/A' }} 
                 
                 </td>
             </tr>
@@ -198,19 +198,19 @@
                 <th></th>
                 <th></th>
                 <td><strong>( ડ ) મકાન મળતાં ઉપર દર્શાવેલ મકાન સરકારને તુરત પાછું આપવામાં આવશે કે કેમ્?</strong></td>
-                <td colspan="3">{{  $quarterrequest->prv_handover }} 
+                <td colspan="3">{{  isset($quarterrequest->prv_handover)?$quarterrequest->prv_handover:'N/A' }} 
                 
                 </td>
             </tr>
             <Tr>
                 <th>7</th>
                 <th>અગાઉ ગાંધીનગર માં મકાન મેળવવા અરજી કરવા માં આવી છે અથવા મકાન ફાળવેલ છે?</th>
-                <td> {{  $quarterrequest->have_old_quarter }} 
+                <td> {{  isset($quarterrequest->have_old_quarter)?$quarterrequest->have_old_quarter:'N/A' }} 
                 
                     
                 </td>
                 <td><strong>તારીખ, નંબર, બ્લોક વિગેરે વિગત </strong></td>
-                <td colspan="2"> {{  $quarterrequest->old_quarter_details }} 
+                <td colspan="2"> {{  isset($quarterrequest->old_quarter_details)? $quarterrequest->old_quarter_details:'N/A' }} 
                 
                 </td>
             </Tr>
@@ -223,30 +223,30 @@
                 </td>
                 <td><strong>વિગત </strong></td>
                 <td colspan="2">
-                 {{  $quarterrequest->is_scst }} 
+                 {{  isset($quarterrequest->is_scst)?$quarterrequest->is_scst:'N/A' }} 
                 </td>
             </Tr>
             <Tr>
                 <th>9</th>
                 <th>ગાંધીનગર ખાતે જો રહેતા હોય તો કોની સાથે, તેમની સાથે નો સંબંધ અને મકાન ની વિગત</th>
                 <td>
-                 {{  $quarterrequest->is_relative }} 
+                 {{  isset($quarterrequest->is_relative)?$quarterrequest->is_relative:'N/A' }} 
                    
                 </td>
                 <td><strong>વિગત </strong></td>
                 <td colspan="2">
-                 {{  $quarterrequest->relative_details }} 
+                 {{  isset($quarterrequest->relative_details)?$quarterrequest->relative_details:'N/A' }} 
                 </td>
             </Tr>
             <Tr>
                 <th>10</th>
                 <th>ગાંધીનગર ખાતે માતા/પિતા. પતિ/પત્ની વિગેરે લોહી ની સગાઈ જેવા સંબંધીને મકાન ફાળવેલ છે?</th>
-                <td> {{  $quarterrequest->is_relative_householder }} 
+                <td> {{  isset($quarterrequest->is_relative_householder)?$quarterrequest->is_relative_householder :'N/A' }} 
                     
                 
                 </td>
                 <td><strong>વિગત </strong></td>
-                <td colspan="2"> {{  $quarterrequest->relative_house_details }} 
+                <td colspan="2"> {{  isset($quarterrequest->relative_house_details)?$quarterrequest->relative_house_details:'N/A' }} 
                 
                 </td>
             </Tr>
@@ -254,11 +254,11 @@
             <Tr >
                 <th>11</th>
                 <th>ગાંધીનગર શહેર ની હદ માં અથવા સચિવાલય થી ૧૦ કિલોમીટર ની હદ માં અથવા ગાંધીનગર ની હદ માં આવતા ગમડાં માં તેમના પિતા/પતિ/પત્ની કે કુટુંબ ના કોઈપણ સભ્યને નામે રહેણાંકનું મકાન છે?</th>
-                <td> {{  $quarterrequest->have_house_nearby }} 
+                <td> {{  isset($quarterrequest->have_house_nearby)?$quarterrequest->have_house_nearby:'N/A' }} 
                 
                 </td>
                 <td><strong>વિગત </strong></td>
-                <td colspan="2"> {{  $quarterrequest->nearby_house_details }} 
+                <td colspan="2"> {{  isset($quarterrequest->nearby_house_details)?$quarterrequest->nearby_house_details:'N/A' }} 
                 
                 </td>
             </Tr>
@@ -267,7 +267,7 @@
                 <th>12</th>
                 <th colspan="3">જો બદલી થઈ ને ગાંધીનગર આવેલ હોય તો પોતે જે કક્ષા નું વસવાટ મેળવવાને પાત્ર હોય તે મળે ત્યાં સુધી તરત નીચી કક્ષાનું વસવાટ ફાળવી આપવા વિનંતી છે?</th>
                 <td colspan="2">
-                {{  $quarterrequest->downgrade_allotment }} 
+                {{  isset($quarterrequest->downgrade_allotment)?$quarterrequest->downgrade_allotment:'N/A' }} 
                 
                 </td>
                 
@@ -298,14 +298,14 @@
                 <h3 class="card-title">Review</h3>
               </div>
               <div class="card-body">
-              <form method="POST" name="front_annexurea" id="front_annexurea" action="{{ url('savenewrequest') }}" enctype="multipart/form-data">
-@csrf 
-    <div class="row">
+              <form method="POST" name="front_annexurea" id="front_annexurea" action="{{ url('saveapplication') }}" enctype="multipart/form-data">
+            @csrf 
+            <div class="row">
 			<div class="col-12">
 				<div class="form-group">
 				<label for="Name">Status</label>
                 {{ Form::select('status',[null=>__('common.select')] + getupdatestatus(),"",['id'=>'status','class'=>'form-control select2']) }}                                       
-			
+    
 				</div>
                 <div class="col-12 yesno_status" style="display:none">
 				<div class="form-group">
@@ -315,6 +315,10 @@
 				</div>
 			</div>
             <div class="card-footer">
+            <input type="hidden" name="requestid" value="{{ isset($quarterrequest->requestid)?$quarterrequest->requestid:'' }}" />
+ 
+ <input type="hidden" name="rv" value="{{ isset($quarterrequest->rivision_id)?$quarterrequest->rivision_id:'' }}" />
+
 			<button type="submit" class="btn btn-primary">Save & Next</button>
 		</div>
 			</div></div>
@@ -328,11 +332,17 @@
                 <h3 class="card-title">Attachments</h3>
               </div>
               <div class="card-body">
-                <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg">
-                <br>
-                <input class="form-control" type="text" placeholder="Default input">
-                <br>
-                <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm">
+                @foreach($file_uploaded as $file)
+                   
+                    <div class="row">
+			<div class="col-12">
+				<div class="form-group">
+				<label for="Name"> {{ $file->document_name }}</label>
+				<a href="{{ url('/download/'.$file->doc_id)  }}" target="_blank"><img src="{{ URL::asset('images/pdf.png') }}" class="export-icon" /> </i></a>
+               </div> 
+               </div>
+               </div>
+             @endforeach
               </div>
               <!-- /.card-body -->
             </div>
@@ -342,11 +352,25 @@
                 <h3 class="card-title">View old version(s)</h3>
               </div>
               <div class="card-body">
-                <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg">
-                <br>
-                <input class="form-control" type="text" placeholder="Default input">
-                <br>
-                <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm">
+              <div class="row">
+           <div class="col-12">
+           <div class="form-group">
+              @foreach($quarterrequest1 as $request)
+               <label for="Name"> </label>
+           
+               <a href="{{ url('/download/'.$request->doc_id)  }}" ><img src="{{ URL::asset('images/archive.png') }}" class="export-icon" /> </i></a>
+              @if($request->rivision_id == 0)
+              {{ "Application" }}
+              @else
+                {{ "Rivision ".$request->rivision_id }}
+                @endif   
+
+                             
+             @endforeach  
+                   </div> 
+                   </div>
+              </div>
+
               </div>
               <!-- /.card-body -->
             </div>
