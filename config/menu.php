@@ -185,7 +185,8 @@ return [
             'route' => [
                 'user.Quarters',
                 'quartersuser',
-                'user.Quarter.higher'
+                'quartershigher',
+                'quartershistory'
             ],
             'link' => 'user.Quarters',
             'submenu' => [
@@ -201,26 +202,34 @@ return [
                 'Higher Category Quarter Request' => [
                     'title' => 'menus.Higher Category Quarter',
                     'icon' => 'nav-icon fa fa-Home ',
-                    'permission_route' => 'user.Quarter.higher',
+                    'permission_route' => 'user.quarter.higher',
                     'route' => [
-                        'user.Quarter.higher'
+                        'quartershigher'
                     ],
-                    'link' => 'user.Quarter.higher',
+                    'link' => 'user.quarter.higher',
                 ],
                 
                 'Request History' => [
                     'title' => 'menus.Request History',
                     'icon' => 'nav-icon fa fa-history',
-                    'permission_route' => 'user.Quarter.history',
+                    'permission_route' => 'user.quarter.history',
                     'route' => [
-                        'user.Quarter.history'
+                        'quartershistory'
                     ],
-                    'link' => 'user.Quarter.history',
+                    'link' => 'user.quarter.history',
                 ],
 
             ]
         ],
-       
+        'Quarter Allotment' => [
+            'title' => 'menus.Quarter Allotment ',
+            'icon' => 'fa fa-thumbs-up ',
+            'permission_route' => 'userallotmentlist*',
+            'route' => [
+                'userallotmentlist'
+            ],
+            'link' => 'userallotmentlist.index',
+        ],
         'Logout' => [
             'title' => 'menus.Logout',
             'icon' => 'nav-icon fas fa-tachometer-alt',

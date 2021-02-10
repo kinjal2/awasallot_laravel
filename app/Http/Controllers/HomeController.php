@@ -24,8 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     { 
-      
-      if( Session::get('is_admin') == true)
+     //dd(Session::get('is_admin'));
+      if(Session::get('is_admin') == true)
       {
           return  \Redirect::route('admin.dashboard.admindashboard'); 
         

@@ -8,12 +8,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">New Request</h1>
+            <h1 class="m-0 text-dark">{{  __('request.new_request') }}</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">New Request</li>
+              <li class="breadcrumb-item"><a href="#">{{  __('common.home') }}</a></li>
+              <li class="breadcrumb-item active">{{  __('request.new_request') }}</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -26,17 +26,10 @@
 			 <!-- general form elements -->
 			 <div class="card card-default">
 			   <div class="card-header">
-				 <h3 class="card-title">Request Details</h3>
-				 @if ($errors->any())
-					 <div class="alert alert-danger">
-						 <ul>
-							 @foreach ($errors->all() as $error)
-							 <li>{{ $error }}</li>
-							 @endforeach
-						 </ul>
-					 </div><br />
-				 @endif
-			   </div>
+				 <h3 class="card-title">{{  __('request.request_details') }}</h3>
+			 </div>
+       @include(Config::get('app.theme').'.template.severside_message')
+		  @include(Config::get('app.theme').'.template.validation_errors')
 			   <!-- /.card-header -->
 			   <!-- form start -->
 			   <form method="POST" name="front_annexurea" id="front_annexurea" action="{{ url('savenewrequest') }}" enctype="multipart/form-data">
@@ -46,9 +39,9 @@
             <div class="info-box">
 			
               <div class="col-6 col-sm-6 col-md-6 border-right">
-				<p class="text-muted"><b>ક્વાર્ટર કેટેગરી</b></p>
+				<p class="text-muted"><b> {{  __('request.Quarter_category') }}</b></p>
 				<hr>
-				<p class="text-muted"><b>જો નવી નિમણૂંક હોય / બદલી થયેલ હોય તો કઇ તારીખ</b></p>
+				<p class="text-muted"><b>{{  __('request.deputation_date') }}</b></p>
 			  </div>
 			  
 			  <div class="col-6 col-sm-6 col-md-6">
@@ -75,12 +68,12 @@
 			
               <div class="col-6 col-sm-6 col-md-6 border-right">
 				
-				<p class="text-muted"><b>બદલી થઈ ને આવ્યા છે /પ્રતિનિયુક્તિ ઉપર આવ્યા છે?</b></p>
+				<p class="text-muted"><b>{{  __('request.cometransfer') }}</b></p>
 				<hr>
 				
 				<div class="row transfer">
                   <div class="col-3">
-                    <p class="text-muted" style="text-align:center;"><b>હોદ્દો</b></p>
+                    <p class="text-muted" style="text-align:center;"><b>{{  __('common.designation') }}</b></p>
                   </div>
                   <div class="col-9">
                     <input class="form-control" name="old_desg" id="old_desg" type="text" style="width:100%">
@@ -110,7 +103,7 @@
 				
 				<div class="row transfer">
                   <div class="col-3">
-                    <p class="text-muted"><b>કાચેરી નુ નામ</b></p>
+                    <p class="text-muted"><b> {{  __('request.office_name') }}</b></p>
                   </div>
                   <div class="col-9">
                     <input class="form-control" type="text"  name="old_office" id="old_office"   style="width:100%">
@@ -129,19 +122,19 @@
 			
               <div class="col-6 col-sm-6 col-md-6 border-right">
 				
-				<p class="text-muted"><b>આ પહેલા ના સ્થ્ળે સરકારશ્રીએ વસવાટ ની સવલત આપી છે?</b></p>
+				<p class="text-muted"><b>  {{  __('request.beforerecidant') }}</b></p>
 				<hr>
 				
 				<div class="place">    				   
-					<p class="text-muted" style="line-height:35px;"><b>માસીક ભાડું</b>
+					<p class="text-muted" style="line-height:35px;"><b>{{ __('request.monthly_rate')}}</b>
 						<input class="form-control"  name="prv_rent"  id="prv_rent" type="text" style="float:right;width: 80%;">
 					</p>									  
 				  <hr>
-				    <p class="text-muted" style="line-height:35px;"><b>વસવાટ નો ક્વાર્ટર નંબર</b>
+				    <p class="text-muted" style="line-height:35px;"><b>{{ __('request.quarter_number_habitar')}}</b>
 						<input class="form-control" name="prv_building_no" id="prv_building_no" type="text" style="float:right;width: 70%;">
 					</p>	  
 				  <hr>				 
-                    <p class="text-muted" style="line-height:35px;text-align:end;"><b>કોલોની નું નામ/રીક્વીઝીશન કરેલ મકાન ની વિગત</b></p>                  
+                    <p class="text-muted" style="line-height:35px;text-align:end;"><b>{{ __('request.colony _name')}}</b></p>                  
                                     
                 </div>
 				
@@ -166,13 +159,13 @@
 				
 				<div class="place">
                     
-					<p class="text-muted" style="line-height:35px;"><b>વસવાટ ની કેટેગરી</b> 
+					<p class="text-muted" style="line-height:35px;"><b>{{ __('request.quarter_type')}} </b> 
 						   {{ Form::select('prv_quarter_type',[null=>__('common.select')] + getBasicPay(),'',['id'=>'prv_quarter_type','class'=>'','style' => 'width:50%;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #495057;height: 32px;']) }}                                       
 	
 					</p>
 					<hr>
 					 <p class="text-muted" style="line-height:35px;">
-					 <b>મકાન મળતાં ઉપર દર્શાવેલ મકાન સરકારને તુરત પાછું આપવામાં આવશે કે કેમ?</b>&nbsp;&nbsp;
+					 <b>{{ __('request.will_above')}} </b>&nbsp;&nbsp;
 					 	{{ Form::select('prv_handover',getYesNo(),'',['id'=>'prv_handover','class'=>'','style'=>'width:21%;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #495057;height: 32px;']) }}                                       
 		
 					</p>
@@ -193,7 +186,7 @@
 			
               <div class="col-6 col-sm-6 col-md-6 border-right">
 				
-				<p class="text-muted"><b>અગાઉ ગાંધીનગર માં મકાન મેળવવા અરજી કરવા માં આવી છે અથવા મકાન ફાળવેલ છે? </b>
+				<p class="text-muted"><b>{{ __('request.beforeallot')}}  </b>
 				
 						<div class="form-group clearfix">
                       <div class="icheck-primary d-inline">
@@ -214,7 +207,7 @@
 				
 				<div class="row house">
                   <div class="col-3">
-                    <center><p class="text-muted" style="line-height: 50px"><b>વિગત</b></p></center>
+                    <center><p class="text-muted" style="line-height: 50px"><b>{{ __('request.details')}}</b></p></center>
                   </div>
                   <div class="col-9">
                     <textarea class="form-control" style="width:100%" name="old_quarter_details" id="old_quarter_details"></textarea>
@@ -225,7 +218,7 @@
 			  </div>
 			  
 			  <div class="col-6 col-sm-6 col-md-6">
-				<p class="text-muted"><b>ગાંધીનગર ખાતે રહો છો? </b>
+				<p class="text-muted"><b>{{ __('request.lives')}} </b>
 				
 				<div class="form-group clearfix">
                       <div class="icheck-primary d-inline">

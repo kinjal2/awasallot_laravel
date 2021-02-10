@@ -12,7 +12,7 @@ class File_list extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User', 'uid', 'id');
+      //  return $this->belongsTo('App\User', 'id', 'uid');
     }
 }
 

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use Validator,Redirect,Response;
-
 use Illuminate\Http\Request;
 use App\Tquarterrequestb;
 use App\Tquarterrequesta;
@@ -42,14 +41,38 @@ class QuartersController extends Controller
 	    $this->_viewContent['page_title'] = "Quarter History" ;
         return view('user/historyQuarter',$this->_viewContent);
     }
-    public function requestnewquarter(){
-        $this->_viewContent['page_title'] = "Quarter Request";
-         return view('user/newQuarterRequest',$this->_viewContent);
+    public function requestnewquarter()
+    {  
+     
+        $uid=Session::get('uid');
+        $basic_pay=Session::get('basic_pay');
+        $quarterselect= Quarter::where('bpay_from', '<=',$basic_pay)->where('bpay_to', '>=',$basic_pay)->get();
+        $quarterrequesta = Tquarterrequesta::where('uid', '=', $uid)->where('quartertype', '=', $quarterselect[0]->quartertype)->get();
+        $quarterrequestcheck = $quarterrequesta->count();
+        if($quarterrequestcheck > 0)
+        {   
+             return redirect('userdashboard')->with('message',"You have already registered a new quarter request.");
+        }
+        else {
+            $this->_viewContent['page_title'] = "Quarter Request";
+            return view('user/newQuarterRequest',$this->_viewContent);
+        } 
     }
     public function requesthighercategory()
     {
-        $this->_viewContent['page_title'] = "Higher Category";
-        return view('user/higherCategoryQuarterRequest',$this->_viewContent);
+        $uid=Session::get('uid');
+        $basic_pay=Session::get('basic_pay');
+        $quarterselect= Quarter::where('bpay_from', '<=',$basic_pay)->where('bpay_to', '>=',$basic_pay)->get();
+        $quarterrequesta = Tquarterrequestb::where('uid', '=', $uid)->where('quartertype', '=', $quarterselect[0]->quartertype)->get();
+        $quarterrequestcheck = $quarterrequesta->count();
+        if($quarterrequestcheck > 0)
+        {   
+             return redirect('userdashboard')->with('message',"You have already registered a higher category quarter request.");
+        }
+        else {
+            $this->_viewContent['page_title'] = "Higher Category";
+            return view('user/higherCategoryQuarterRequest',$this->_viewContent);
+        }
     }
     public function saveHigherCategoryReq (Request $request)
     {
@@ -102,6 +125,7 @@ class QuartersController extends Controller
                 $Tquarterrequestb->hc_unitno = empty($request->get('hc_unitno')) ? NULL : $request->get('hc_unitno');
                 $Tquarterrequestb->hc_details = empty($request->get('hc_allotment_details')) ? NULL : $request->get('hc_allotment_details');
                 $Tquarterrequestb->is_accepted = empty($request->get('agree_rules')) ? 0 : 1;
+                $Tquarterrequestb->request_date =date('Y-m-d');
                 $Tquarterrequestb->save();
                 return redirect()->back()->withErrors('message', 'IT WORKS!');
             }
@@ -182,7 +206,7 @@ class QuartersController extends Controller
                 $Tquarterrequesta->is_priority = 'N';
                 $Tquarterrequesta->uid = $uid; 
                  $Tquarterrequesta->save(); 
-                 return redirect('quartersuser')->with('Success',"operation failed");
+                 return redirect('quartersuser')->with('Success',"Data Saved Successfully");
             }
 			catch(Exception $e){
 				return redirect('insert')->with('failed',"operation failed");
@@ -196,7 +220,7 @@ class QuartersController extends Controller
        
                 $basic_pay=Session::get('basic_pay');
                 $quarterselect= Quarter::where('bpay_from', '<=',$basic_pay)->where('bpay_to', '>=',$basic_pay)->get();
-               DB::enableQueryLog();
+              //  DB::enableQueryLog();
                 $quarterlist = Tquarterrequestc::select([DB::raw("'c' as type"),DB::raw("'change' as requesttype"),'quartertype','request_date','is_accepted','inward_date',DB::raw("wno::integer"),'remarks',
                 DB::raw("(CASE 
                 WHEN is_allotted='0' THEN 'NO' 
@@ -229,8 +253,8 @@ class QuartersController extends Controller
                 ->union($quarterlist) 
                 ->union($quarterlist2) 
                 ->get();
-               $query = DB::getQueryLog();
-              dd( $query);
+               DB::getQueryLog();
+             // dd( DataTables::of($quarterlist3)->toJson());
             
             return Datatables::of($quarterlist3)
                         ->addIndexColumn()
@@ -252,7 +276,7 @@ class QuartersController extends Controller
                         ->addColumn('action', function($row){
                          
                          
-                           $btn1 = '<a href="' . \URL::action('QuartersController@generate_pdf') . "/" . $row->requestid . "/" . $row->rivision_id . '" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a> '."&nbsp;".'<a href="' . \URL::action('QuartersController@uploaddocument'). "?r=" . base64_encode($row->requestid)."&type=". base64_encode($row->type)."&rev=". base64_encode($row->rivision_id).'" class="btn btn-primary btn-sm"><i class="fa fa-file" aria-hidden="true"></i></a>';
+                           $btn1 = '<a href="' . \URL::action('QuartersController@generate_pdf'). "?r=" . base64_encode($row->requestid)."&type=". base64_encode($row->type)."&rev=". base64_encode($row->rivision_id).'" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a> '."&nbsp;".'<a href="' . \URL::action('QuartersController@uploaddocument'). "?r=" . base64_encode($row->requestid)."&type=". base64_encode($row->type)."&rev=". base64_encode($row->rivision_id).'" class="btn btn-primary btn-sm"><i class="fa fa-file" aria-hidden="true"></i></a>';
                             return $btn1;
                         })
                         ->rawColumns(['action'])
@@ -458,7 +482,7 @@ $requestdate ="";
             <col width="25%" />
         </colgroup>
         <tr>
-            <th colspan="6" style="text-align: center;">પરિશિષ્ટ - અ</th>
+   style="text-align: left"         <td colspan="6" style="text-align: center;"><b>પરિશિષ્ટ - અ</td>
         </tr>
         <tr>
             <th colspan="6" style="text-align: center;">ગાંધીનગર માં સરકારી વસવાટ મેળવવા માટે સરકારી કર્મચારી કે અધિકારી એ કરવા ની અરજી</th>
@@ -973,7 +997,7 @@ $requestdate ="";
     }
    public function downloaddocument(request $request)
    {
-    $url_segment = \Request::segment(2);
+     $url_segment = \Request::segment(2);
      $client = new CouchClient('http://admin:admin@localhost:5984','awas_document');
     //   $client->InitConnection();
     //   $client->isRunning();
@@ -1036,8 +1060,14 @@ $requestdate ="";
         $remarks= $result1['remarks'];
         if($type == 'a')
         {   
-        
-            $result=Tquarterrequesta::where('requestid',$requestid)->where('rivision_id',$rv)
+             $result=Tquarterrequesta::where('requestid',$requestid)->where('rivision_id',$rv)
+            ->update(['remarks' => $remarks,'remarks_date'=>date('Y-m-d')]);
+            return redirect('/quarterlistnormal')->with('success', 'Quarter request processed successfully!');
+            
+        }
+        if($type == 'b')
+        {   
+             $result=Tquarterrequestb::where('requestid',$requestid)->where('rivision_id',$rv)
             ->update(['remarks' => $remarks,'remarks_date'=>date('Y-m-d')]);
             return redirect('/quarterlistnormal')->with('success', 'Quarter request processed successfully!');
             

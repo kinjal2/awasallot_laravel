@@ -50,7 +50,12 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
+  	@if(session()->has('message'))
+    <div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+        {{ session()->get('message') }}
+    </div>
+@endif
       <div class="container-fluid">
       <div class="row">
           <div class="col-md-6">

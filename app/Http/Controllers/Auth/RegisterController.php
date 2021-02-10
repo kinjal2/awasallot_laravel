@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\User;
+use Illuminate\Http\Request;
+Use Redirect;
 class RegisterController extends Controller
 {
     
@@ -68,16 +70,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-			'date_of_birth'=>$data['birthdate'], 
-			'designation'=>$data['designation'], 
-			'office'=>$data['officename'], 
-			'designation'=>$data['mobile'], 
-        ]);
+      dd("hiiii");
+      
+        if(!Session::get('uid'))
+        {
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'date_of_birth'=>$data['birthdate'], 
+                'designation'=>$data['designation'], 
+                'office'=>$data['officename'], 
+                'designation'=>$data['mobile'], 
+            ]);
+        }
+        else
+        {
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make('test@123'),
+                'is_admin'=>True, 
+                'usercode'=>Session::get('uid'), 
+            ]);
+        }
+
     }
-
-
 }

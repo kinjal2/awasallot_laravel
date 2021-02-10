@@ -3,7 +3,9 @@
 Use App\Quarter;
 Use App\Area;
 Use App\User;
-
+use App\File_list;
+use PHPOnCouch\CouchClient;
+use PHPOnCouch\Exceptions;
 function printLastQuery() {
     ini_set('xdebug.var_display_max_depth', 5);
     ini_set('xdebug.var_display_max_children', 256);
@@ -190,4 +192,30 @@ function checkRequestIs_open($request_array){
         }
     }
     return $is;
+}
+function generateImage($uid){
+ $photo = File_list::where('document_id',8)->where('uid',$uid)->take(1)->get();
+ 
+   $client = new CouchClient('http://admin:admin@localhost:5984','awas_document');
+   //sdd($client->getDatabaseInfos());
+   try{
+       $response=$client->getDoc($photo[0]->doc_id);
+       $response = json_encode($response,True);
+       $array = json_decode($response,True);
+       $data=$array['_attachments'];
+      
+       foreach($data as $key => $value)
+       { 
+       /*$cont  = file_get_contents("http://admin:admin@localhost:5984/awas_document/".$photo[0]->doc_id."/".$key);
+       header('Content-Disposition: inline; filename="1789.jpg"');
+       header("Content-Type: image/jpeg");*/
+       echo "http://localhost:5984/awas_document/".$photo[0]->doc_id."/".$key;
+   // return $cont;
+       }  
+     
+       }
+       catch(Exceptions\CouchNotFoundException $ex){
+       if($ex->getCode() == 404)
+       echo 'Document not found';
+       }
 }

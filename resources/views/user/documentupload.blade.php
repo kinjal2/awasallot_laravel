@@ -98,10 +98,10 @@
                     @foreach($attacheddocument as $a)
                     <tr>
                     <td>{{ $a->document_name}}</td>
-                    <td><i class="fas fa-file-pdf fas-5x" ></i></td>
+                    <td> <img src="{{ asset('/images/pdf.png') }} " width="30" height="30" ></img> </td>
                     
                     <td>
-                    <a href="javascript:;" class="btn btn btn-danger delete_doc" delete-id="{{ $a->rev_id }}" data-id="{{ $a->doc_id }}"><i class=" fa-trash-o"></i></a>
+                    <a href="javascript:;" class="btn btn btn-danger delete_doc" delete-id="{{ $a->rev_id }}" data-id="{{ $a->doc_id }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
                     
                    </td> </tr>
                     @endforeach

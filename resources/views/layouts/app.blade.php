@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
     <style>
   a.logindata {
   color: white;
@@ -98,23 +99,8 @@
 <div class="page-footer " style="padding-top: 200px;">
             @include(Config::get('app.theme').'.template.footer')
         </div>
-<!-- jQuery -->
-<script src="{{ URL::asset(Config::get('app.theme_path').'/plugins/jquery/jquery.min.js') }}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ URL::asset(Config::get('app.theme_path').'/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- InputMask -->
-<script src="{{ URL::asset(Config::get('app.theme_path').'/plugins/moment/moment.min.js') }}"></script>
-<script src="{{ URL::asset(Config::get('app.theme_path').'/plugins/inputmask/min/jquery.inputmask.bundle.min.js') }}"></script>
-<!-- date-range-picker -->
-<script src="{{ URL::asset(Config::get('app.theme_path').'/plugins/daterangepicker/daterangepicker.js') }}"></script>
 
-        <script type="text/javascript">
-$(function() {              
-           // Bootstrap DateTimePicker v4
-           $('.dateformat').datetimepicker({
-                 format: 'DD-MM-YYYY'
-           });
-        });
-        </script>
 
-</html>
+   
+
+

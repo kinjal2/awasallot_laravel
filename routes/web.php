@@ -25,6 +25,7 @@ Route::get('locale/{locale}', function ($locale){
 Auth::routes();
 Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('grasapi', 'Auth\LoginController@apiLogin')->name('grasapi');
 
 
 Route::get('userdashboard', ['uses' => 'DashboardController@userdashboard', 'as' => 'user.dashboard.userdashboard']);
@@ -41,13 +42,13 @@ Route::get('quartersuser', [ 'as' => 'user.Quarters', 'uses' => 'QuartersControl
 Route::post('savenewrequest', ['uses' => 'QuartersController@saveNewRequest']);
 
 
-Route::get('quartershigher', [ 'as' => 'user.Quarter.higher', 'uses' => 'QuartersController@requesthighercategory']);
+Route::get('quartershigher', [ 'as' => 'user.quarter.higher', 'uses' => 'QuartersController@requesthighercategory']);
 Route::post('saveHigherCategoryReq', ['uses' => 'QuartersController@saveHigherCategoryReq']);
 
-Route::get('quartershistory', [ 'as' => 'user.Quarter.history', 'uses' => 'QuartersController@index']);
+Route::get('quartershistory', [ 'as' => 'user.quarter.history', 'uses' => 'QuartersController@index']);
 Route::post('request-history', ['uses' => 'QuartersController@requestHistory']);
 
-Route::get('generate-pdf/{requestid}/revision_id', [ 'as' => 'generate.pdf', 'uses' => 'QuartersController@generate_pdf']);
+Route::get('generate-pdf/:any', [ 'as' => 'generate.pdf', 'uses' => 'QuartersController@generate_pdf']);
 Route::get('uploaddocument/:any', ['uses' => 'QuartersController@uploaddocument']);
 Route::post('saveuploaddocument', ['uses' => 'QuartersController@saveuploaddocument']);
 Route::post('deletedoc', ['uses' => 'QuartersController@deletedoc']);
@@ -111,10 +112,13 @@ Route::get('quarterlistpriority',['QuartersPriorityController@index','as'=>'quar
 Route::post('getList2','QuartersPriorityController@getList');
 Route::resource('quarterlistpriority', 'QuartersPriorityController');
 
+// quarter allotment 
+Route::get('userallotmentlist',['UserQuartersallotmentController@index','as'=>'userallotmentlist.index']);
+Route::post('getListallot','UserQuartersallotmentController@getList');
+Route::resource('userallotmentlist', 'UserQuartersallotmentController');
 
 
 
-Route::get('grasapi', [ 'as' => 'grasapi', 'uses' => 'Auth\LoginController@apiLogin']);
 
 
 //Route::get('logout', ['uses' => 'Auth\LoginController@Logout', 'as' => 'public.do.logout']);
